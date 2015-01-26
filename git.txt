@@ -7,5 +7,16 @@ $ declare -x HTTPS_PROXY="server:port"
 2、提交到github
 $ git push -u https://github.com/shaqueoneal/notes.git master
 
-3、整体提交
+3、自动检查更新并提交
 $ git commit -a -m'XXX'
+
+4、每次提交github不用输入用户名密码？
+假设msysGit安装在C:\Program Files\Git
+打开C:\Program Files\Git\etc\gitconfig在末尾增加：
+[credential] 
+     	helper = store
+保存，下次再输入用户名和密码时，git就会记住
+从而在C:\Users\[username] 目录下形成一个  .git-credentials 文件
+里面就是保存的你的用户名和密码（注意是明文存储！！！）。
+
+$ git push -u https://shaqueoneal:Zslu07042@github.com/shaqueoneal/notes.git master
