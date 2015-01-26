@@ -1,0 +1,98 @@
+=======for linux======
+
+1、创建svn库
+
+$ svnadmin create /var/svn/repos
+
+建立目录（linux上任意位置，推荐分三个目录）：
+mkdir /home/z07042/V7/trunk
+mkdir /home/z07042/V7/branchs
+mkdir /home/z07042/V7/tags
+
+把实际文件放到trunk下：
+mv SR88V7R1 /home/z07042/V7/trunk/ -f
+
+向库导入文件：
+svn import /home/z07042/V7/ file:///var/svn/repos/V7 -m "initial import"  --no-ignore 
+
+查看库内容：
+svn list file:///var/svn/repos
+V7/
+$ svn list file:///var/svn/repos/V7
+branches/
+tags/
+trunk/
+说明库已创建且文件导入成功。
+
+2、创建SVN网络服务
+$ svnserve -d -r /var/svn/repos
+
+3、检出代码
+$ svn co svn://172.16.1.8/V7/trunk/SR88V7R1
+
+在windows安装SVN客户端，在svn explorer输入URL：
+svn://172.16.1.8/
+能打开并看见V7说明服务启动成功
+
+代码根目录为：/SR88V7R1
+
+4、销毁库
+rm /var/svn/repos/ -rf
+
+
+========FAQ==================
+1、ci时提示没有权限？
+
+进入/var/svn/repos/conf，检查：
+svnserve.conf:
+anon-access = none
+auth-access = write
+password-db = passwd
+authz-db = authz
+
+authz：
+[/]		//表示对整个工程目录
+root = rw
+* = rw
+
+passwd：
+[users]
+root = 123456
+
+2、ci两个目录？
+svn ci include/ product/
+
+3、同时使用多个库？
+正常流程创建另一个代码库如repos1，svnserve换一个端口即可
+$ svnserve -d -r /var/svn/repos --listen-port=3691
+
+4、提交时排除某类文件？
+进入用户文件夹 ls -al , 找到隐藏的.subversion 如 /root/.subversion
+修改config文件[miscellany]
+
+5、排除某文件夹？
+
+
+6、客户端无法访问svn服务器提示链接超时？
+netstat -tulnp 		查看是否3690端口有没有打开 
+如果3690端口没有打开：
+iptables -I INPUT -p tcp --dport 3690 -j ACCEPT   #3690端口
+/etc/init.d/iptables save 		          #保存配置
+
+7、提交时提示$SVN_EDITOR未定义错误？
+进入用户文件夹 ls-al, 找到隐藏的.bash_profile 如 /root/.bash_profile
+添加一行
+export SVN_EDITOR="vi"
+保存后重新登录即可
+
+8、多用户共同开发时的配置管理？
+
+9、怎样每次输入用户名密码
+Linux下删除上次SVN登录的用户名密码
+rm ~/.subversion/auth/svn.simple/*
+Windows 删除以下目录
+C:\Documents and Settings\administrator\Application Data\Subversion\auth\svn.simple
+
+
+
+

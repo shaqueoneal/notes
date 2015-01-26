@@ -1,0 +1,53 @@
+添加删除路由表：
+ip rule del from 192.168.21.93 pref 11 table eth0_table
+ip rule add from 192.168.21.93 pref 11 table eth0_table
+
+添加删除路由表eth0_table路由：
+ip route del dev eth0 192.168.61.0/24 table eth0_table
+ip route add dev eth0 192.168.61.0/24 table eth0_table 
+
+添加删除主路由表路由：
+ip route del dev eth0 192.168.61.0/24
+ip route add dev eth0 192.168.61.0/24
+
+添加删除路由表eth0_table缺省网关：
+ip route del default via 192.168.61.1 dev eth0 table eth0_table
+ip route add default via 192.168.61.1 dev eth0 table eth0_table
+
+添加删除主路由表缺省网关：
+ip route del default via 192.168.61.1 dev eth0
+ip route add default via 192.168.61.1 dev eth0
+
+route add -net %s netmask %s dev eth0
+route add default gw %s dev eth0
+
+
+====================设MAC地址========================
+进入me8000设置状态
+查看
+bdinfo
+
+进uboot设置MAC
+config ethaddr 00:4c:20:08:00:08
+
+====================装备设MAC地址====================
+进入装备测试界面：
+
+[root@H3C:~]# cd /mnt/soft/driver/cli/
+
+[root@H3C:/mnt/soft/driver/cli]# ./_hide
+不用输入密码直接回车即可
+
+<MG9050-equipment>test eth setmac xx:xx:xx:xx:xx:xx（此处为待设置mac地址）
+
+回车确认，如mac地址本身没有问题不必关注命令返回的错误提示。
+
+注意设置后需要重新启动设备，启动后可通过ifconfig测试是否设置成功。
+
+
+====================查看双链路会话状态===============
+root@H3C_MG9060:~# cat /proc/kbfd/session 
+
+
+====================查看ping=====================
+ping -I eth0

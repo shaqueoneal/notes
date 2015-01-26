@@ -1,0 +1,23 @@
+1、Makefile可以逐级包含.mk文件，每个目录放一个.mk文件，可如下书写：
+
+# mk
+
+DRV_DIR = $(HSLSW_DP_BASE)/common/driver		//本级目录
+
+include $(DRV_DIR)/ds31408/ds31408.mk			//如果有下级目录
+
+SRC_C := drv_driver_all.c				//本级目录如果有文件，则需要下面几行，否则不需要
+
+# prefix path
+SRCS := $(SRCS) $(patsubst %.c, $(DRV_DIR)/%.c, $(SRC_C))
+
+# dependencies
+DEPS := $(DEPS) $(patsubst %.c, $(HSLSW_OBJ_DIR)/%.d, $(SRC_C))
+
+# objs
+HSLSW_OBJS := $(HSLSW_OBJS) $(patsubst %.c, $(HSLSW_OBJ_DIR)/%.o, $(SRC_C))
+
+
+2、解决make失败生成长度为0的.d文件导致无法增量编译的问题
+加上：
+.DELETE_ON_ERROR:

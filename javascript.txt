@@ -1,0 +1,128 @@
+1、除了数字、字符串，bool变量、null和undefined这几个原始变量(值不变，对其操作都返回一个新值)，其他变量都是对象，array、function是对象。
+2、构造函数能用new创建类的对象，Date、Error、RegExp是js提供类。
+3、js用64位浮点数表示数字，数组下标用32位整数。
+4、==会自动转换类型，undefined、null、0、-0、NaN、"" 能转成 false。
+6、对象赋值是引用，不是拷贝
+7、变量只有两个作用域，函数和全局，函数内变量都被认为是函数头声明
+8、全局变量是全局对象的属性，有var声明不可删除，否则可删除
+9、所有对象都有toString和toValue函数，空参数的构造函数()可省略
+10、js文件被解析成对象树结构
+11、对象属性(property)有三个相关特性：writable, enumerable, configurable，对象有三个相关特性(attribute)：prototype, class, extensible，对象属性会沿prototype查找
+12、对象可以有三种创建方法：对象字面语句，new, create。 create 可以指定原型对象，对象属性修改不影响原型
+13、Object.getOwnPropertyDescriptor可获取对象属性描述符，Object.defineProperty，Object.defineProperties设置，
+Object.getPrototypeOf获取原型，isPrototypeOf是否原型，Object.isExtensible，Object.preventExtensions不能增加属性，Object.seal，Object.freeze更严格
+14、instanceof测对象 typeof测类型 in测属性 delete 删属性(数组元素是下标属性)
+15、对象序列化JSON.stringify(o)，JSON.parse(s)
+16、array是对象，index、length是属性， for/in不保证顺序自动跳过空元素， forEach按序遍历, Array.join(), String.split();
+concat(), slice()返回新array;  reverse, sort,push、pop、shift、unshift，splice修改原有array; 
+map(), filter(), every() and some(), reduce() and reduceRight(),indexOf() and lastIndexOf(), Array.isArray
+17、对象可模拟数组，字符串可做为只读数组
+18、函数声明创建对象，并绑定函数名; 函数表达式可以不绑定;函数声明跟var声明一样认为在脚本或函数头部声明且不可删除;函数可以嵌套定义（做为上层函数的方法）
+19、函数调用4钟方法：函数、方法、构造函数，call()/apply()；可以定义的时候直接调用，每次调用包含this指针参数
+20、函数做为方法调用this指向调用函数的对象，嵌套函数用this没有指向的对象，需要在外层用var self=this保存
+21、函数做为构造函数默认this指向新建对象，除非显式返回值
+22、call()和apply()是函数对象的方法，通过修改this指针使函数被不同对象调用，第一个参数都是修改this指向的对象，第二个参数开始apply是数组，call同正常函数
+23、函数参数保存在arguments array-like对象里，arguments.callee.length：形参个数 arguments.length:实参个数
+24、函数有闭包特性：函数内部定义的函数在被外部调用时访问闭包内的变量，原理：函数作用域是对象链表
+25、函数原型有：call() apply(), bind()等；bind绑定函数到对象，返回函数，调用该函数时this指向绑定对象，bind可以绑定参数到对象属性
+26、Function()每次动态生成函数对象，为全局作用域，prototype有constructor指向函数本身
+27、class定义方法参考function Complex(real, imaginary)
+28、比较运算符<，>等，调用valueOf()比较，自定义比较函数写compareTo()
+29、复合、子类和抽象类技术，匿名函数内定义函数立即执行实现模块化，返回模快函数或对象实现API导出。
+30、//定义正则表达式，\n匹配第n个子表达式，\n不能在[]里引用，非贪婪匹配正则表达式后面加?，(?:...)只分组不引用，(?=\p)后接p
+31、string的4个正则函数，find, replace, match, split, 正则表达式对象的函数exec, test，正则对象函数用到lastIndex属性
+32、迭代器必须包含next()方法 ，Iterator()获取和设置遍历对象；for/in，可访问迭代器；yeild返回一个生成器，包含next()方法，所以也是迭代器。
+33、数组推导： [ expression for ( variable in object ) if ( condition ) ]， 生成器表达式：(expression for ( variable in object ) if ( condition ))
+34、Nodejs模块名字空间内含全局对象export，模块API在export上定义函数即可导出，引用模块用require()
+35、+歧义解决办法：拼接 "" + a + b;  加法：a - (-b)
+36、JavaScript使用UTF16编码
+
+
+1、javascript四种方式嵌入html: <script></script>; <script src="">; <a href="javascript:">; onevent=""
+2、javascript脚本共享一个全局window对象，<iframe>内是另一个window对象
+3、<script> type属性如果未知，浏览器将跳过解析
+4、网页加载过程：
+浏览器创建Document对象（document.readyState == "loading"）->解析<HTML>添加Element对象和文本节点->
+解析<script>->document.readyState == "interactive"->浏览器触发Document对象的DOMContentLoaded事件挂接js异步事件处理->
+加载图片等内容完成->document.readyState == "complete"，触发window对象load事件
+5、客户端javascript不能写和删文件，不能创建通用socket，只能读同源的文档
+6、同源是指protocol, host, port都相同，同源限制是指脚本或http只能访问同源的文档，脚本本身的来源不受此限制如<script src="">
+7、同源限制解决方法：
+	Document object的domain属性能设置成网站的后缀域名
+	Cross-Origin Resource Sharing方法http头增加Access-Control-Allow-Origin响应头
+	文档间通过postMessage()发送，onmessage接收
+8、html元素对象的 id 会做为属性名加入window对象（前提是window没这个属性），可直接用id访问元素对象
+   <a> <applet> <area> <embed> <form> <frame> <frameset> <iframe> <img> <object> 加name属性有同样效果，区别是name可重名是全局数组效果，id会覆盖
+9、windows, tabs, iframes, and frames都是Window对象，name属性保存窗口名，窗口名可以被open()也可以被<a> and <form>的target属性使用 
+10、open()的Window有opener属性，关闭Window用window.close以区别文档的关闭，iframe不受close影响，关闭后Window对象还在，closed属性为true
+11、访问DOM 元素5方法：id，name，tag，css class，css selector
+12、所有DOM元素都能有id属性，name属性只对form, form元素, <iframe>, and <img> 有效
+13、NodeLists and HTMLCollections元素会动态改变，querySelectorAll()，querySelector()元素不会动态改变；getElementsBy...()等函数都能被Document和Element调用
+14、CSS 虚假元素 :first-line and :first-letter :link and :visited 不响应querySelectorAll() querySelector()
+15、html对应DOM结构，对应一颗Node节点组成的树，可通过节点的属性遍历
+16、Element 有以下属性操作：getAttribute() and setAttribute() hasAttribute() and removeAttribute()
+17、data-开头的小写单词都是合法属性，通过Element的dataset属性访问（HTML5）
+18、innerHTML带标签，innerText不带标签
+19、form有onsubmit和onrest两个事件属性，如果返回false则不处理，事件只有按钮按下才会触发，submit()，reset()函数不会触发该事件
+radio box 和 check box有click和change两个事件，form元素都有focus和blur事件，都有form属性指向所在的form，所以可用this.form.x访问x元素
+
+20、绑定事件时候传参数：
+	1.直接在funcionName 里用 this 就是对触发事件的元素本身的引用，如果你需要funcionName有更多参数的话，可以这样用：
+	2.$(":text").bind("keyup",function(){ 
+	funcionName(arg1,arg2,arg3,arg4); 
+	});
+	3.$(:text").bind("keyup", function(e) {
+	var elm = e.target; //这个就是触发事件的控件
+	});
+
+21、事件冒泡
+	1.event.stopPropagation(); 
+	事件处理过程中，阻止了事件冒泡，但不会阻击默认行为（它就执行了超链接的跳转） 
+	2.return false; 
+	事件处理过程中，阻止了事件冒泡，也阻止了默认行为（比如刚才它就没有执行超链接的跳转） 
+	3.event.preventDefault(); 
+	不阻止事件冒泡，但阻止默认行为（它只执行所有弹框，却没有执行超链接跳转）
+22、$()是函数，变量用$()包起来，就可以用jQuery函数
+
+23、css位置：元素内style属性，html文件<head>内<style>标签，<link href="xxx.css"> 
+
+24、on可以绑定后创建元素，bind只能绑定已存在元素，两者都可以重复绑定，off或unbind取消
+
+25、jquery each()跳出循环break：return false;  continue：return true;
+
+26、position: absolute 相对于上级absolute对象定位，如果没有就对document定位；fixed对屏幕定位，不滚动；relative对父元素定位；
+width和height元素会覆盖right和bottom，获取当前对象位置用getBoundingClientRect()
+27、margin：border外空白 padding：border内空白 	margin不影响绝对定位， width height 不含边界 left right top bottom 含边界，是否含边界可设置box-sizing
+28、visibility: false 元素在文档流中  display: none 元素不存在
+29、<style> and <link> 做为document的element存在，document.styleSheets 做为CSSStyleSheet对象列表存在
+30、提高网页加载速度方法： <srcipt src="XXX" defer async="true"> 或者脚本放html尾部加载
+31、用XMLHttpRequest可以发送form，json，xml，file(Blob)，FormData请求
+32、<script> 通过src=url后面加?jsonp=callbackname 或者&jsonp=callbackname可以处理 JSON， 这种方式叫JSONP
+33、服务器推送var ticker = new EventSource("stockprices.php"); ticker.onmessage = function(e) {e.type; e.data}
+
+jquery 事件可以定义名字空间，注册事件回调可以用参数也可以用对象，事件回调函数第一个参数是jquery事件对象，有若干有用属性
+jquery 可以自定义事件：$.event.trigger("logoff")定义并触发logoff事件; $.event.trigger 不会冒泡，trigger()会冒泡
+jquery trigger()只能触发一个事件, 触发jQuery注册事件同时触发默认动作和HTML元素属性里的事件回调，但是addEventListener() 或者 attachEvent()注册的事件不触发， 
+triggerHandler()只触发第一个事件回调，不做默认动作和冒泡
+jquery bind() / on()可以绑定多个事件，bind()静态绑定，on()动态绑定，动态绑定事件依赖于事件冒泡触发
+jquery animate() 三个对象属性也可以写成参数： duration, easing, 和complete
+jquery animation 是以事件队列形式处理的，默认队列名称fx，可以设置不使用队列，也可以自定义队列(换个不是fx的名字就可以)，可以有easing function
+可以用jQuery.queue(e,f)或者 $(e).queue(f)往事件队列添加事件处理函数f，dequeue()或者next()调用下个事件函数
+
+jquery load()第一个参数是函数表示事件回调，如果是字符串表示ajax加载，可以部分加载：$('#temp').load("weather_report.html #temperature"); 
+可以有第二个参数传递数据或函数回调
+jQuery的ajax回调函数有jQuery的状态字符串和XMLHttpRequest对象做入参
+jQuery.getScript()可以请求并立即调用同源或跨源脚本，还可以有一个回调函数；同源时采用XMLHttpRequest获取文档内容，跨源时通过<script>元素，所以这时候回调函数参数undefined
+jQuery.getJSON()可以有数据参数，参数以“=?”结尾或者在&之前，则被当作JSONP请求，jquery会用创建的回调函数替换=？里的？然后一切就请求脚本文件一样，所以也可以跨域
+jQuery.get()和jQuery.post()还可以有第四个参数指定数据类型：text, html, xml, script, json, jsonp
+最后都调用jQuery.ajax()，jQuery.ajax()回调有：beforeSend, success, error和complete，jQuery.ajaxSetup可以设置所有ajax的超时时间、是否缓存和其他选项
+jQuery.ajax()四个回调函数对应四个事件和四个对应的触发函数，另外还有ajaxStart和ajaxStop事件和触发函数
+jQuery.ajax()事件绑定与元素无关默认全局触发，除非context选项有指定，global属性false可以禁止ajax事件
+jQuery工具：$.each()按索引以for/in遍历，不会跳过undefined元素，始终返回第一个参数
+			$.extend() 参数为对象，把对象合并到第一个对象，没有第一个对象则合并到jQuery，可用于复制对象，第一个参数true为深拷贝
+			$.proxy() 以对象上下文调用函数，即改变this所指对象
+jQuery选择器前面指定tag或直接用id更有效，选择方法：slice() filter() not() has(), add() find() children()会去除重复值并排序 contents()返回子节点文档内容
+next() prev() nextAll() prevAll() nextUntil() prevUntil() siblings() parent() parents() parentsUntil() end() addBack()
+jQuery.fn 是jQuery对象的原型
+jQuery.expr[':'].draggable = function(e) { return e.draggable === true; };可扩展选择符 $("img:draggable")
+

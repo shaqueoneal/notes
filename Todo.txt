@@ -1,0 +1,19 @@
+Lint工具配置和使用：
+LintAnalysis怎么实现：
+总线：
+MIPS：
+
+todo:
+ssh
+
+svn http访问和权限管理
+正则表达式
+makefile
+gdb
+quicker
+review
+lint
+
+done:
+perl
+shell

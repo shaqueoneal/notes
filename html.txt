@@ -1,0 +1,36 @@
+1、html元素
+<tag>内容</tag>
+<tag />
+
+2、大多数元素的共有属性
+class	为html元素定义一个或多个类名（classname）(类名从样式文件引入)
+id	定义元素的唯一id
+style	规定元素的行内样式（inline style） title text 规定元素的额外信息（可在工具提示中显示）
+title	描述了元素的额外信息 (作为工具条使用)
+
+3、可以添加在头部区域的元素标签为: <title>, <style>, <meta>, <link>, <script>, <noscript>, and <base>.
+
+4、使用CSS的三种方法
+内联样式- 在HTML元素中使用"style" 属性
+内部样式表 -在HTML文档头部 <head> 区域使用<style> 元素 来包含CSS
+外部引用 - <link>使用外部 CSS 文件
+
+5、div块内分区 span行内分区
+
+6、href可以指定target iframe
+
+7、在页面很长的时候会使用 # 来定位页面的具体位置，格式为：# + id
+
+8、css #表示id, .表示class, []表示属性, ","表示分组, 没有","表示下级元素, 下级元素默认继承上级元素
+
+9、css执行顺序：id > class > tag , 权重分别为100 10 1， 总权重相同最后定义的css生效
+
+10、css让div居中
+position:fixed;
+left:50%;
+width:200px; 
+margin-left: -100px;
+
+11、http请求格式
+请求：【动作】【URL】【可包含授权的可选请求头】【请求体】
+响应：【状态码】【响应头】【响应体】

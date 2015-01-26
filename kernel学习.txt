@@ -1,0 +1,89 @@
+1、内核线程和普通线程区别是内核线程mm指针为NULL，即没有地址空间，只能访问内核空间。新内核线程由kthreadd内核线程产生。kthreadd在boot时启动。
+2、linux 2.6 普通进程用CFS算法调度实质是按CPU利用率调度，实时进程FIFO或RR算法调度。实时进程不能被低优先级进程抢占。系统内部表示实时进程优先级0-99 (real-time priority 99~0)，普通进程100-139(nice -20~19)。内核任务(进程)也是可抢占的。
+3、linux中断顺序执行，单条中断线上处理时不允许线上其他中断，所以没有中断嵌套问题。一根中断线上可接多个中断。
+4、进程上下文，进程通过系统调用进入内核，此时内核为该进程执行程序，这段程序称为进程上下文。
+5、中断上下文，内核执行中断程序，这段程序称为中断上下文。中断上下文不应该调用会sleep的函数，因为中断没有调度，sleep后函数不会被唤醒。
+6、中断用栈不能超过1页，即4k
+7、2.6 has three bottom-half mechanisms in the kernel: softirqs, tasklets, and work queues
+8、不同处理核可以同时处理相同软中断，所以软中断全局数据需要锁定。
+9、jiffy is often the time between two successive clock cycles; HZ = jiffies/s , jiffies volatile 时钟中断累加jiffies
+10、内核timer都是一次性的，短时间sleep udely() mdely(), 长时间sleep用schedule_timeout()
+11、内核给每个物理内存页分配一个page结构
+12、high memory不一定映射到虚拟内存，可能没有逻辑地址，所以Only alloc_pages() can allocate high memory.
+13、kmalloc分配连续物理地址（逻辑地址必连续）常用，vmalloc分配连续逻辑地址（物理上不一定连续）会把物理内存拼接成逻辑内存，慢，少用。
+14、进程调度的时机：中断返回、主动调用sched(如sleep())、timer定时到（属于中断)、高优先级进程创建直接抢占？
+15、多个用户登录原理？
+调用login
+
+16、epoll、select、timer等是和主线程独立的程还是同一线程？
+17、cpu怎么在内核态和用户态分配？
+18、头文件在哪里？
+19、怎样查看linux内核的配置？
+/boot/config下有配置文件
+
+============进程调度==========
+1、进程包含一个或多个线程，linux 实现不特别区分进程和线程，每个线程都有自己的task_struct，内核通过管理task_struct进行调度。
+2、用户进程通过fork()创建，内核线程通过kernel_thread()创建，最后都通过clone()系统调用实现，区别在clone传递的标志不同。
+3、linux进程存在父子关系，子进程通过父进程创建，创建时如果clone()系统调用的标志写为共享地址空间，文件系统，文件描述符和信号处理程序，则父子进程可认为是一个进程的两个不同线程。
+4、
+用户进程（线程）抢占发生在：系统调用返回用户空间，中断调用返回用户空间
+内核进程（线程）抢占发生在：中断
+
+============中断==============
+1、中断：硬件异步发生 异常：软件同步发生。
+2、中断处理程序ISR通过request_irq注册给内核，内核在中断产生时调用。
+3、Linux中断不用考虑可重入，中断IRQ可以共享，中断时这个IRQ在所有处理器上都不使能，但是可以被其他IRQ中断打断，时钟中断是不可打断中断，所以一般中断配置成可打断中断。
+4、中断有三个下半部机制: softirqs, tasklets, and work queues
+
+============内核同步==========
+1、spin_lock单核实现仅仅是禁止内核抢占，多核其他进程忙等待锁释放再执行
+
+============内存管理==========
+1、每个内存物理页有一个page结构管理，每个页属于一个区：ZONE_DMA，ZONE_DMA32，ZONE_NORMAL，ZONE_HIGHMEM
+2、kmalloc分配物理内存地址连续，参数GFP_ATOMIC不可睡眠， GFP_KERNEL可睡眠
+3、kmem_cache_create可创建slab高速缓存，kmem_cache_alloc创建缓存对象
+4、kmap把虚拟地址映射到物理地址，可阻塞，kmap_atomic不可阻塞
+5、每CPU变量减少SMP锁的使用，大幅增加cashe命中
+
+============虚拟文件系统======
+1、VFS提供不同文件系统的统一抽象，有四个主要的对象类型：superblock,inode,dentry和file, dentry和file没有对应的磁盘结构
+2、file对象由open()创建，close()销毁，file对象指向dentry从而指向inode，同一文件可以有多个file但是dentry和inode只有一个
+3、file_system_type包含superblock管理各种类型的文件系统实例，每个文件系统实例安装时有vfsmount结构
+4、进程描述符通过files_struct, fs_struct和mnt_namespace与文件系统建立关联
+
+============块IO层============
+1、buffer_head映射磁盘块到内存页，bio把内存页中的片段组成链表进行操作
+2、io请求由request表示，每个request可以包含多个bio，请求进入队列等待IO调度。
+3、IO请求调度算法as,cfq,deadline,noop默认cfq
+
+============进程地址空间======
+1、可被进程合法访问的地址区间称为内存区域VMA，可包含text，data，bss(每个共享库附加一份这些段)，内存映射文件，共享内存和匿名分配的内存段。
+2、内存由内存描述符mm_struct描述进程地址区间，进程描述符中mm存放该结构，内核线程mm为NULL，使用上个进程的mm。
+3、vm_area_struct描述内存区域VMA，mm_struct可含多个vm_area_struct。
+4、内核通过do_mmap创建VMA，用户进程用mmap2。
+5、虚拟地址通过查找页表找到物理地址，Linux使用三级页表完成地址转换，搜索页表由硬件完成，硬件用TLB缓存页表。
+6、32位系统，最高地址的1G供内核使用，低的3G供用户进程使用，这样每个进程有4G虚拟地址空间。
+
+============页高速缓存========
+1、Linux用address_space对象保存高速缓存中的页面，用基树提高搜索效率。
+2、页高速缓存会导致写延迟，dirty page通过一组flusher内核线程回写到磁盘。
+3、回写时机：空闲内存低于阈值，脏页驻留时间高于阈值或用户系统调用sync。
+
+============设备和模块========
+1、模块可以配置选项Kconfig，可以声明参数，用EXPORT_SYMBOL导出函数。
+2、统一设备模型用kobject结构嵌入设备结构，从而形成一颗树，称为sysfs文件系统，mount在/sys下，tree -L 查看
+3、sysfs代替了ioctl()和procfs。通过属性来访问sysfs设备。
+4、内核事件从sysfs的kobject通过netlink套接字发出，接口为kobject_uevent()，用户态守护进程接收事件并存入系统栈。
+
+
+
+==============查看内核队列TIMQ================
+cat /proc/kque | grep TIMQ
+
+==============查看线程调用栈==================
+kdb> pid 29
+KDB current process is MVBT(pid=29)
+kdb> bt
+
+==============设置打内核印输出级别============
+echo 7 > /proc/sys/kernel/printk 

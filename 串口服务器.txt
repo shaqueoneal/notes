@@ -1,0 +1,35 @@
+查看当前telnet用户
+dis tcp stat
+
+查看端口4配置
+[Router]int asy 4
+[Router-Async4]dis th
+  Now create configuration...
+  Current configuration
+  !
+  interface Async4 
+    physical-mode async
+    undo modem
+    undo detect DSR-DTR
+    baudrate 115200
+    async mode flow
+    flow-control none
+    link-protocol ppp
+    reverse-telnet listenport 2004
+    reverse-telnet return-deal from-telnet
+  !
+  return
+
+设置端口波特率(需要插拔单板)
+[Router-Async4]bau 9600
+  Async4's baudrate is 9600 bps
+[Router-Async4]
+%17:11:40: Interface Async4 is DOWN
+[Router-Async4]
+%17:11:40: Interface Async4 is UP
+[Router-Async4]
+[Router-Async4]
+[Router-Async4]
+
+把占用串口服务者踢掉
+[Router-Async7]reverse-telnet disconnect

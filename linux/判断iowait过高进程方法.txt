@@ -1,0 +1,22 @@
+判断iowait过高进程方法2010-03-07 11:47    最近有一台服务器iowait常年在40%以上， 但不清楚到底是哪个进程造成的。开始我都是通过cpu占用率和iw的关系来估计是哪个进程造成的。后来宋老师在网上找到了一个判断进程io的定量化方法：
+/etc/init.d/syslog stop
+echo 1 > /proc/sys/vm/block_dump
+dmesg | egrep 'READ|WRITE|dirtied' | egrep -o '([a-zA-Z]*)' | sort | uniq -c | sort -nr | head
+    678 cmasm
+    565 pdflush
+    479 kjournald
+     75 nroff
+     50 sh
+     42 gtbl
+     41 irqbalance
+     40 cmahostd
+     38 troff
+     34 cmahealthd
+
+dmesg | egrep -n 'READ|WRITE|dirtied' | awk '{print $2}' | sort | uniq -c | sort -nr | head
+
+查看结束后需要关掉block_dump并启动syslog
+echo 0 > /proc/sys/vm/block_dump
+/etc/init.d/syslog start
+
+ 

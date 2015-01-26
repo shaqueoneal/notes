@@ -1,0 +1,15 @@
+1. 显示所有按键列表 HLEP->Creat KeyList
+2. Quicker使用异常，rebuild Base project
+3. 时常在保存代码的时候跳出下图所示的对话框，输入yes后，有时会造成所做的修改会自动消失。
+解决方法：
+将Source Insight升级到最新版本Sourc Insight(3.50.0064)。
+路径：\\h3chznt02\高端交换机\HSLSW\管理规范\05.工具\SOURCEINSIGHT\Sourc Insight(3.50.0064)。
+只需将Insight3_en.exe文件拷贝到本地安装目录即可，以后直接运行Insight3_en.exe。
+
+提示：
+别忘记设置下这个，让文件路径显示完整。其他配置以及所建立的工程和原来一样。
+
+4. sourceinsight工程remove不掉解决方法：
+用 UE打开 C:\Users\z07042\Documents\Source Insight\Projects 把删不掉的工程全写为0
+
+5. 中文显示乱码

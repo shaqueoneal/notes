@@ -1,0 +1,69 @@
+2	组件Lib编译
+1.	代码makefile结构
+为了让我们的代码的makefile结构对各种操作系统和产品都有良好的兼容性，建议使用如下的结构。
+ 说明：
+(1)	submodulen/makefile.$(OS_VER)
+这个每个子模块（子目录）的makefile，里面包含该子模块（子目录）里的代码的目标文件生成规则，如：
+DOPRA_OBJS += $(OBJ_DIR)/v_bufque.$(OBJ_SUFFIX)
+#-------------------------
+# Dependence relationship
+#-------------------------
+	
+$(OBJ_DIR)/v_bufque.$(OBJ_SUFFIX): $(BUFQUE_ROOT)/v_bufque.c $(DOPRA_INC) $(BUFQUE_ROOT)/v_bufque.inc
+		   $(CXX) $(COPTSXX) $(BUFQUE_ROOT)/v_bufque.c -c -o $@
+后缀$(OS_VER)用于区分不同的底层操作系统，即不同的操作系统使用不同的make文件；如果模块代码完全与底层操作系统无关，可以不需要这个后缀进行区分。
+(2)	module_sw.mk
+该文件用于定义模块所包含的子模块（子目录），如：
+include $(DOPRA_ROOT)/src/mcmsg/makefile.$(OS_VER)
+include $(DOPRA_ROOT)/src/lib/minilib/makefile.$(OS_VER)
+include $(DOPRA_ROOT)/src/logque/makefile.$(OS_VER)
+...
+(3)	$(PRODUCT)/define.mk
+是不同产品的相关定义，一般由产品提供，通过$(PRODUCT)来区分不同的产品。
+(4)	makefile
+定义模块lib的生成规则和其他一些相关操作，它通过包含module_sw.mk来取得生成lib所需要的所有目标文件。如：
+include $(PRODUCT_DIR)/define.mk
+...
+include  ./dopra_sw.mk
+...
+
+###########################################
+#             main target		  #
+###########################################
+lib: $(DOPRA_LIB)
+
+$(DOPRA_LIB): $(DOPRA_LIBS)
+	$(AR) $(CFLAGS_AR) $@ $^
+
+
+###########################################
+#             clean target		  #
+###########################################
+clean:
+	@$(RM) $(OBJ_DIR)/*.obj
+	@$(RM) $(DOPRA_LIB)
+(5)	mkfile
+该文件用于执行makefile里定义的目标规则，并为其传递相关参数。如：
+...
+
+xlr_debug: dummy
+	$(MAKE)  COMWARE_VERSION_TYPE=DEBUG OS_VER=rtlinux OS_CPU=mips PRODUCT_SUB_DIR=multicore/xlr PRODUCT_NAME=xlr VRP_ROM_VERSION=1 replace_vrpcfg_h
+	$(MAKE)  COMWARE_VERSION_TYPE=DEBUG OS_VER=rtlinux OS_CPU=mips PRODUCT_SUB_DIR=multicore/xlr PRODUCT_NAME=xlr VRP_ROM_VERSION=1 lib
+
+xlr_debug_clean: dummy
+	$(MAKE)  COMWARE_VERSION_TYPE=DEBUG OS_VER=rtlinux OS_CPU=mips PRODUCT_SUB_DIR=multicore/xlr PRODUCT_NAME=xlr VRP_ROM_VERSION=1 clean
+
+...
+
+注：
+这里只是提供一个基本的参考模型，各组件可以根据实际情况修改和扩展。
+
+2.	编译Lib
+我们要编译一个模块的某个产品的lib，先进入到mkfile文件所在的目录（通常为各组件的Lib编译目录），在该目录下使用make命令执行mkfile中定义的相应目标就可以了。如：要编译xlr产品的debug版的lib，就执行：make -fmkfile xlr_debug。
+ 
+
+3	编译常见问题
+1.	文件名大小写识别
+Linux下gcc编译器区分文件名大小写，现有makefile文件部分目标文件的生成规则中，c文件的扩展名写成了大写（.C），编译器认为其是C++文件，从而打开宏__cplusplus，导致有的地方编译失败。解决方法是将makefile的生成规则中大写的.C改为小写的.c。
+2.	汇编文件中的宏不能识别
+部分汇编文件(.s)编译时里面的宏定义不能被识别，从而编译出错。原因是编译器认为以.s为扩展名的汇编文件不需要进行预处理。解决方法是在汇编文件的编译规则中加入"-x assembler-with-cpp"选项，强制编译器对汇编文件进行预处理。

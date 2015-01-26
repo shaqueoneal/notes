@@ -1,0 +1,230 @@
+1、翻译调用栈
+Call trace:                                                                     
+Function Address = 0xffffffffe07e1c48                                           
+Function Address = 0xffffffffe0812940                                           
+进KDB
+id Function Address，如id 0xffffffffe07e1c48
+
+2、读地址
+md 0xffffffffb780000e
+
+3、写一个字节为C5到地址 0xffffffffb780000e
+mm1c1 0xffffffffb780000e c5
+
+4、混合显示函数的代码和汇编
+kdb> ss                                                                         
+SS trap at 0xf587ccc4                                                           
+0xf587ccc4 DRV_LIF_ATM_PhyIoCtl <+4>:     mflr   r0
+
+5、查看入参、出参和返回值(mips64)
+[0]kdb> bp DRV_CLK_GetRefInfo
+Instruction(i) BP #0 at 0xffffffffe2740ec0 ([sr8800]DRV_CLK_GetRefInfo) globally        addr at ffffffffe2740ec0, hardtype=0, forcehw=0, installed=0, hard=ffffffff80cb2998
+
+[0]kdb> go
+
+<H3C>dis net so
+Instruction(i) breakpoint #0 at 0xffffffffe2740ec0 (adjusted) cpu 0
+0xffffffffe2740ec0 DRV_CLK_GetRefInfo:         daddiu   sp,sp,-160
+
+Entering kdb (current=0xc00000022b11a670, pid 517) on processor 0 due to Breakpoint @ 0xffffffffe2740ec0
+[0]kdb> rd
+ zero = 0x00000000    at = 0x00000008 
+   v0 = 0xffffffffe2740ec0    v1 = 0x00000012 
+   a0 = 0x00000012    a1 = 0xc00000023311f800 
+   a2 = 0x00000034    a3 = 0xc00000023311f800 
+   t0 = 0xc00000023311f800    t1 = 0x00000002 
+   t2 = 0x000002c4    t3 = 0x00000001 
+   t4 = 0x00000010    t5 = 0xffffffff80205754 
+   t6 = 0xffffffff802e9e20    t7 = 0x00000038 
+   s0 = 0x555562cc70    s1 = 0xffffd04f58 
+   s2 = 0x120ce1ba0    s3 = 0x55555f25d0 
+   s4 = 0xffffd03f90    s5 = 0xffffffff804ed0c8 
+   s6 = 0xffffffff804ed0b0    s7 = 0xffffffff804ed098 
+   t8 = 0x00000000    t9 = 0xffffffffe2f62a40 
+   k0 = 0xffffffffe54ff7b8    k1 = 0xc0000001f71ce680 
+   gp = 0xc000000233110000    sp = 0xc00000023311f6d8 
+   s8 = 0xffffcf8b40    ra = 0xffffffffe27f854c 
+   hi = 0x00000000    lo = 0x00000001 
+   pc = 0xffffffffe2740ec0    sr = 0x5400ffe3 
+cause = 0x00800024 badva = 0x100000000 
+
+
+入参：bp 函数名
+      rd 查看寄存器 a0是参数1 a1是参数2 a2是参数3 a3是参数4 t0是参数5 t1是参数6
+出参: rd 查看寄存器 
+      bp ra地址   //ra保存函数返回的指令地址
+      [0]kdb> bp 0xffffffffe27f854c 
+      go 断住后根据入参方法查看
+返回值: 
+      rd 查看寄存器 
+      bp ra地址
+      go
+      [0]kdb> go
+Instruction(i) breakpoint #1 at 0xffffffffe27f854c (adjusted) cpu 0
+0xffffffffe27f854c DRV_EDEV_Ioctl <+3372>:   sd v0,64(sp)
+      rd v0 就是返回值
+
+6、利用kdb命令获取寄存器上下文信息和自动推导调用栈的方法
+===============================================================
+请看下面的这个现场信息：
+ 
+6:CPU 6 Unable to handle kernel paging request at virtual address 000000000000000c, epc == ffffffffe01b78b4, ra == ffffffffe01badc8  Entering kdb (current=0xc0000003803f0000, pid 0) on processor 7 due to KDB_ENTER()                                                 
+[7]kdb> bt                                                                                                                          
+Stack traceback for pid 0                                                                                                           
+0xc0000003803f0000      0      1  1   7  R  0xc0000003803f0478      0K *[swapper]                                                   
+SP         PC         Function                                                                                                      
+0xc00000038040f650 0xffffffff80393538 kdb_panic+0x48                                                                                
+0xc00000038040f650 0xffffffff8045f16c notifier_call_chain+0x6c                                                                      
+0xc00000038040f680 0xffffffff80242b0c panic+0x1bc                                                                                   
+0xc00000038040f710 0xffffffff8021db14 die+0x1e4                                                                                     
+0xc00000038040f760 0xffffffff80222db4 do_page_fault+0x404                                                                           
+0xc00000038040f830 0xffffffff80200660 ret_from_exception                                                                            
+0xc00000038040f9b8 0xffffffffe01badc8 [system]QOSFW_IfOutput+0x1a8                         
+ 
+即 系统先打印了其他的错误信息，之后才进了 kdb。
+在这个例子里，最初打印错误信息的cpu（信息头里显示CPU 6）和触发kdb的cpu（看提示符前的"[7]")也不一样，所以可以断定，kdb没有在第一现场触发。
+看调用栈，kdb是在内核的panic流程里触发了，并且调用栈里出现了 ret_from_exception（出现这个函数，就意味这发生异常）。这更加可以断定，kdb 甚至不是在第二现场触发的。
+ 
+这可以归为一大类问题的现场典型特征：kdb现场和第一现场无直接关系，kdb调用栈中出现了 ret_from_exception 函数。
+ 
+首先，分析这个问题，需要关注的是最初打印的那条错误信息。很明确，尽管kdb在cpu7上触发的，问题是先发生在cpu 6 上的。
+因而，需要首先切换到cpu6 上。 切换cpu的方法：
+[7]kdb> cpu 6                                                                                                                       
+                                                                                                                                    
+Entering kdb (current=0xc000000380358000, pid 0) on processor 6 due to cpu switch                                                   
+ 
+然后看一下调用栈（此时的调用栈很有可能也不是第一现场）
+[6]kdb> bt                                                                                                                          
+Stack traceback for pid 0                                                                                                           
+0xc000000380358000      0      1  1   6  R  0xc000000380358478      0K *[swapper]                                                   
+SP         PC         Function                                                                                                      
+0xc00000038037f4e0 0xffffffff802442cc __vprintk+0x2fc                                                                               
+0xc00000038037f5c0 0xffffffff80244740 vprintk+0x30                                                                                  
+0xc00000038037f5f0 0xffffffff80242c10 printk+0x30                                                                                   
+0xc00000038037f650 0xffffffff80222da4 do_page_fault+0x3f4                                                                           
+0xc00000038037f720 0xffffffff80200660 ret_from_exception                                                                            
+0xc00000038037f8a8 0xffffffffe01badc8 [system]QOSFW_IfOutput+0x1a8                                                                  
+ 
+也出现了 ret_from_exception 函数。因此，可以断定，这也已经不是第一现场了。不过，既然出现了 ret_from_exception 函数，那意味这我们可以想办法得到异常现场的信息。
+ 
+现在我们来看获取准确寄存器上下文和调用栈的方法:
+1. 获取寄存器上下文的方法
+找到 ret_from_exception的栈顶，即第一列的SP（0xc00000038037f720），作为参数，传递给 ef 命令。
+[6]kdb> ef 0xc00000038037f720                                                                                                       
+ zero = 0x00000000    at = 0x00000008                                                                                               
+   v0 = 0x00000000    v1 = 0x00000200                                                                                               
+   a0 = 0xc00000035d3a39f0    a1 = 0xc00000035c73d440                                                                               
+   a2 = 0x00000000    a3 = 0x00000002                                                                                               
+   t0 = 0x00000000    t1 = 0xc000000380036b44                                                                                       
+   t2 = 0x00008000    t3 = 0xffffffffe0a90000                                                                                       
+   t4 = 0x00000010    t5 = 0xffffffff802054b4                                                                                       
+   t6 = 0x00000000    t7 = 0xc00000039c1d0000                                                                                       
+   s0 = 0xc00000035d3a39f0    s1 = 0xc00000035c73d440                                                                               
+   s2 = 0x000003fa    s3 = 0xc00000038037fab8                                                                                       
+   s4 = 0xffffffffe0307410    s5 = 0xc00000038037f9a0                                                                               
+   s6 = 0xc00000038037f99c    s7 = 0xffffffffe03080e0                                                                               
+   t8 = 0x00000000    t9 = 0xffffffffe01a44b0                                                                                       
+   k0 = 0xc00000039c1ec018    k1 = 0x00000000                                                                                       
+   gp = 0xc000000380370000    sp = 0xc00000038037f8a8                                                                               
+   s8 = 0xffffffffe0306d70    ra = 0xffffffffe01badc8                                                                               
+   hi = 0x00000001    lo = 0x56000158                                                                                               
+   pc = 0xffffffffe01b78b4    sr = 0x5400ffe3                                                                                       
+cause = 0x00800008 badva = 0x0000000c                              
+ 
+命令输出结果就是发生异常时的寄存器上下文（在很少数的情况下，异常可能嵌套发生。在那种情况下，综合运用这里介绍的方法逐层分析即可）
+ 
+我们可以看到 badva 的值和错误信息匹配了（0x0000000c），这通常意味着代码访问空指针了。推理逻辑就是，代码拿着空指针（0），
+访问偏移量为（0xc）的数据。到此也基本明确，最初打印的错误信息就是在这个现场打印的（因为错误地址已经可以匹配上了）。
+ 
+2. 获取调用栈的方法
+有了正确的寄存器上下文后，找出 pc 和 sp 的值，用kdb的 btf 命令，就可以推导出调用栈了。
+[6]kdb> btf 0xffffffffe01b78b4 0xc00000038037f8a8                                                                                   
+SP         PC         Function                                                                                                      
+0xc00000038037f8a8 0xffffffffe01b78b4 [system]QOSFW_proc_ServiceProcess+0x44                                                        
+0xc00000038037f938 0xffffffffe01badc8 [system]QOSFW_IfOutput+0x1a8                                                                  
+0xc00000038037f978 0xffffffffe01a457c [system]lagg_ksfw_PaPhyTransmit+0xcc                                                          
+0xc00000038037f998 0xffffffffe0308b70 [system]USERLOG_SendSessionLog+0x4a0                                                          
+0xc00000038037fa48 0xffffffffe016c3ac [system]SESSION_KLOGINFO_SendbyUserLog+0x18c                                                  
+0xc00000038037fb28 0xffffffffe0112464 [system]nat_SessDeleteProc+0xd4                                                               
+0xc00000038037fb48 0xffffffffe0162578 [system]SESSION_Delete+0xc8                                                                   
+0xc00000038037fba8 0xffffffffe00fc350 [system]_agingqueue_unstable_Timer2+0x1c0                                                     
+0xc00000038037fc18 0xffffffff80250f6c run_timer_softirq+0x17c                                                                       
+0xc00000038037fcb8 0xffffffff8024b898 __do_softirq+0x148                                                                            
+0xc00000038037fd18 0xffffffff8024ba98 do_softirq+0xe8                                                                               
+0xc00000038037fd38 0xffffffff80200678 ret_from_irq                                                                                  
+0xc00000038037fec0 0xffffffff8023ac18 finish_task_switch+0x88                                                                       
+0xc00000038037fef0 0xffffffff8045a338 schedule+0x748                                                                                
+0xc00000038037ffd0 0xffffffff80218eb4 cpu_idle+0x54                                                                                 
+0xc00000038037ffe0 0xffffffff8020053c prom_pre_boot_secondary_cpus                                                                  
+                                                                                                                                    
+[6]kdb>
+ 
+从调用栈可以看的出来，异常是在中断上下文发生的。
+同时，有了这个调用栈和寄存器上下文信息，就可以进一步分析问题所在了。 
+===============================================================
+
+7、直接调用函数
+go kdb_reboot
+
+8、查看临时变量的值
+临时变量存在堆栈中，在KDB里面通过rd 命令能看到栈顶指针的值，（PPC上是r0寄存器，mips上是sp寄存器）
+通过gdb获取变量偏移
+gdb) file platform_leopard/product/sr8800/mpu_xlp/prj/debug/sr8800.ko
+Reading symbols from /home/code/zhaofancheng/SR8800V700R001B02D002/SR8800V700R001B02D002/bcmplat_code_lsw_v7/platform_leopard/product/sr8800/mpu_xlp/prj/debug/sr8800.ko...done.
+(gdb) info scope DRV_INDEXQ_ShowStruct  
+Scope for DRV_INDEXQ_ShowStruct:
+Symbol uiHandle is a variable at frame base reg $sp offset 0+-32, length 4.  ---------------> 这里的数值-32就是距离堆栈指针SP的偏移值
+Symbol uiBufSize is a variable at frame base reg $sp offset 0+-28, length 4.
+
+SP指针必须是在函数刚进入时看到的，在函数运行过程中，这个值是会变的
+[0]kdb> bt                                                                                                                          
+Stack traceback for pid 2396                                                                                                        
+0xc0000000ebe42670   2396   2395  1   0  R  0xc0000000ebe42af0  90052K *comsh                                                       
+SP         PC         Function                                                                                                      
+0xc0000000ec59faa8 0xffffffffe2893cb0 [sr8800]DRV_INDEXQ_ShowStruct                                                                 
+0xc0000000ec59faa8 0xffffffffe2895bdc [sr8800]DRV_INDEXQ_CmdProc+0x22c                                                              
+0xc0000000ec59fae8 0xffffffffe288d704 [sr8800]DRV_UTIL_CIO_IndexQ+0x104                                                             
+0xc0000000ec59fb28 0xffffffffe28901f4 [sr8800]DRV_UTIL_CioctlCallBack+0x1f4                                                         
+0xc0000000ec59fb88 0xffffffffe2e912f0 [sr8800]CIOCTL_Doit+0x3c0                                                                     
+0xc0000000ec59fe58 0xffffffff802031e8 stack_done_ra                                                                                 
+[0]kdb> rd                                                                                                                          
+ zero = 0x00000000    at = 0x00000004                                                                                               
+   v0 = 0xffffffffe2893cb0    v1 = 0x00001800                                                                                       
+   a0 = 0x1234ff00    a1 = 0x00001800                                                                                               
+   a2 = 0xc0000000eb69c000    a3 = 0xc0000000ec59fdf8                                                                               
+   t0 = 0xc0000000eb69c000    t1 = 0xc0000000ec59fdf8                                                                               
+   t2 = 0x00000008    t3 = 0x55597a53a8                                                                                             
+   t4 = 0x00000008    t5 = 0xffffffff80205758                                                                                       
+   t6 = 0xffffffff802e9e20    t7 = 0x00000008                                                                                       
+   s0 = 0x555562cc70    s1 = 0xffff81cf24                                                                                           
+   s2 = 0x120cc2070    s3 = 0x55555f25d0                                                                                            
+   s4 = 0xffff81c460    s5 = 0x120007918                                                                                            
+   s6 = 0xffffffff804ed0b0    s7 = 0xffffffff804ed098                                                                               
+   t8 = 0x00000000    t9 = 0xffffffffe2e90f30                                                                                       
+   k0 = 0xc0000000c1c421e8    k1 = 0xffffffff803c3544                                                                               
+   gp = 0xc0000000ec590000    sp = 0xc0000000ec59faa8  -------> SP指针                                                                             
+   s8 = 0xffff818f30    ra = 0xffffffffe2895bdc                                                                                     
+   hi = 0x00000000    lo = 0x00000000                                                                                               
+   pc = 0xffffffffe2893cb0    sr = 0x5400ffe3                                                                                       
+cause = 0x00800024 badva = 0xffffffff804ed098                                                                                       
+[0]kdb>  
+
+比如要看 uiBufSize 的值，它的地址是sp - 28 = 0xc0000000ec59fa8c
+[0]kdb> md c0000000ec59fa8c 
+0xc0000000ec59fa88 1234ff0000001800 c0000000eb69c000   .4...........i.. ----> uiBufSize的值是0x0001800 就是 6144， 6K ，同理，前面的0x1234ff00实际上是 uiHandle的值
+
+9、KDB中在指定行号设置断点
+用gdb disassemble /m DRV_ETH_GetBuffHead 查出行号对应的偏移
+584         {
+585             DRV_DPAA_ETH_DIAG_TO_IC("The buffer head(%p) is error.", pstBufferHead);
+   0x01a626ac <+220>:   lis     r0,3842            -----------------> 对应的偏移为220
+   0x01a626b0 <+224>:   ori     r3,r0,36
+
+
+[0]kdb> bp DRV_ETH_GetBuffHead+220  
+
+10、打开kdb
+su
+echo 1 > /proc/sys/kernel/kdb 
+echo 1 > /dfs/slot3/proc/sys/kernel/kdb
+

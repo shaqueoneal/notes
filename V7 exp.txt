@@ -1,0 +1,60 @@
+1、调用接口注意：
+DRV_DEV_IsNpBoard前要判断DRV_DEV_IsBoardStateOk，否则会断言，仅判断是否线卡槽位号用DRV_DEV_IsLcBoard
+
+2、板间通讯要考虑MDC和ISSU：
+DRV_CLK_RpcCall(IN usSlotId, OUT *pst)
+{
+        if ((BOOL_TRUE != DRV_DEV_IsBoardStateOk(usSlotId)) || (BOOL_TRUE == ISSU_CheckSlotIsSoftRebooting(usSlotId)))
+        {
+            return ERROR_SUCCESS;
+        }
+
+	/* 记录旧的MDC */
+	uiOldMDC = MDC_GetCurrentMDC();
+	
+	/* 设置MDC上下文到管理MDC */
+	if (uiOldMDC != MDC_OS_MMDC_ID)
+	{
+		(VOID)MDC_SetCurrentMDC(MDC_OS_MMDC_ID);
+	}
+	
+	ulRet = IPC_RPC_SyncCall(MID_DRV_CLK, usDstLipAddr, MID_DRV_CLK, DRV_RPC_SEND_PRIORITY,
+	                     puiSendMsg, uiSendMsgLen, (VOID **)&pstReplyMsg,
+	                     &uiRetMsgLen, DRV_CLK_TIMEOUT_1S);
+	if ((ERROR_SUCCESS != ulRet) || (NULL == pstReplyMsg))
+	{
+		DRV_IC_DIAG(DRV_DRIVER_IC_CLK, "p1 = 0x%lx", ulRet);
+		return ERROR_FAILED;
+	}
+	
+	/* 恢复MDC */
+	(VOID)MDC_SetCurrentMDC(uiOldMDC);
+}
+
+3、注册接口事件要考虑MDC
+MDC_EVENT_ELEMENT_DECLARE(stIfmgrstartdrvclk, MDC_EVENT_START, MDC_START_SUB_DRV, MDC_ORDER_MIDDLE, DRV_CLK_MdcEventCallBack)
+
+3、DRV_INTF_GetDataByIfIndex调用时机，板状态normal？
+
+slot 5 调用 slot 3 接口 ifIndex 平台没这种机制
+	
+4、端口删除注册
+
+平台处理困难，驱动处理端口删除事件
+
+5、考虑边界情况
+采用循环方式
+
+子卡拔出，平台下发的情况：
+
+6、缺陷预防
+
+定时器改一次性
+重复值拦截
+
+7、周边模块知识
+
+子通道，子接口，聚合，捆绑
+
+
+

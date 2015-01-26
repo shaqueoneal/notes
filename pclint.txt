@@ -1,0 +1,17 @@
+1、快速计算结构体长度
+比如说，要计算这个结构体的长度：
+-CAR_GLBCAR_STAT_RESPONSE_S
+可以在任意一个文件中定义这样的一个数组：CAR_GLBCAR_STAT_RESPONSE_S- a[-1];
+然后Pclint一下，马上就可以知道这个结构体的长度了。
+
+--- CAR_GLBCAR_STAT_RESPONSE_S a[-1];
+Lint告警：
+-auto variable 'a' in function '_global_GetCarMain(unsigned char, struct tagCAR_MsgGlbCarIndex *)' has size '-56' 
+说明这个结构体的长度是：56个字节
+
+
+2、消除826告警
+指针强转成(HANDLE)再转其他类型
+
+3、死循环后return告警
+函数改成非static 删除return即可

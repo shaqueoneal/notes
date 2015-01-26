@@ -1,0 +1,138 @@
+1、有哪些用户进程，启动顺序是什么？
+/product/init/cr16k/xxx/xxx/scm/system.conf
+
+2、为什么平台要专门定义和解析system.conf不用bash脚本起进程？
+release版本没有bash
+
+3、平台dis dev、dis version和matn模块命令行分别怎么实现？
+dis dev命令在DRV_DEV_Init
+dis version 命令行DRV_DEV_GetSelfVersionInfo
+matn维护模块在DRV_DRIVER_CioctlCallback中注册 DRV_DRIVER_RegCmdMATN ， 用户态从DRV_DRIVER_RegCmdMATN 到 DRV_DRIVER_MATNProc下发命令到内核
+时钟模块 DRV_MATN_ClockRead
+调试	 DRV_UTIL_RegCmdMonitor   g_apstDrvUtilCioCallBack
+4、CR16K有几种视图，分别怎么进入？
+用户->system->prob
+
+5、配置如何保存和恢复,同步给备板？
+注册配置读写函数给平台，平台进行保存和恢复，平台同时下发配置给主、备板
+
+6、主备状态如何获取和确定？
+主备状态通过DRV_BSP_CompeteForMaster()确定，通过DRV_LOGIC_GetMasterMrSlotId()获取
+
+7、定时器TIMER_Create有一个队列参数干嘛用？
+定时到了向队列写定时器事件，该队列加入epoll，epoll回调发现有定时器事件，调用定时器回调
+参考g_kqDrvIpUcTimeQue
+
+8、RPC调用怎么写？
+参考DRV_HA_RpcSend
+
+9、IBC支持最大长度？
+IBC支持最大长度 (1522 - 34)
+
+10、UTIL CIOCTL回调函数位置？
+DRV_UTIL_CioctlCallBack
+
+11、拷贝目录后编译失败？
+clearenv.sh 清除kernel链接
+
+12、改OEM
+DRV_BSP_Init()函数最后调用
+DRV_SYSM_SetOemFlag(DRV_OEM_FLAG_DEFAULT);
+
+13、切端口类型
+进接口视图 port-type switch
+
+14、查看ifIndex对应接口是什么命令？
+[H3C-probe]dis sys int if list
+
+15、查看进程内存使用情况
+<H3C>display process memory heap job 32 slot 8 
+[H3C-probe]dis process job 32 slot 8 
+
+16、看内部版本
+[H3C-probe]display system internal version
+
+17、子卡下电
+[H3C-probe]set hardware internal subcard power-supply slot  6 1 off
+
+18、通过逻辑端口获得端口所在mdc
+DRV_PORT_GetMdcIdByLogicalPort
+DRV_INTF_GetMdcIdByDevNum
+
+19、获取端口函数差别：
+DRV_DEV_GetLogicPortBySCChipInfo  	获取本板逻辑端口
+DRV_DEV_GetLogicPortByUserInfo		获取全局逻辑端口
+
+20、判断子卡是否在位的函数：
+用 DRV_SYSM_SubCardIsNormal
+不用 DRV_DEV_IsSubCardExist
+
+21、通知平台子卡插入
+是 DRV_DEV_NotifyCmwSubcardIn
+不是 DEV_DeviceInsertNotify
+
+22、查看光模块信息
+[H3C-hidecmd]display transceiver manuinfo interface Ten-GigabitEthernet 7/0/2   
+
+23、关闭握手
+[H3C-probe]undo system handshake enable 
+
+24、打开调试
+[H3C-probe]dis hardware internal ic debug  cd slot 7 c 0 
+
+25、命令行直接调用函数
+[H3C-probe]debugging funcall DRV_LOGIC_8kClockChoice 1 slot 1 1
+return value is: 00000000 * 
+
+26、命令行分配内存
+[H3C-probe]dis har int devd kzalloc slot 6 memsize 10
+result: mem address:0xc000000225429230 size:10
+
+27、读底板逻辑
+[H3C-probe]debug sysm cpld-reg read 96 10 1
+                                      97 96 99 98 。。。
+0x9000000013000090:                   80 d3 00 00 c0 ff 01 bf 01 ff 
+[
+H3C-probe]dis hardware internal cpld slot 5 addr c8
+
+ CPLD register read, usSlotId=5, usSubSlotId=65535, uiRegAddr=0xc8, usRegValue=0x31ff.
+ 
+28、88X接口板主备倒换中断回调挂接
+UINT uiEventType = DRV_DEVM_SLOT_EVENT_SLAVE2MAIN;
+ulRet = DEV_DEVM_SlotEventRegister(MID_DRV_IPC, uiEventType, DRV_DEVM_SLOT_EVENT_PRIORITY_ABOVE_NORMAL, Drv_Sysm_Lpu_532X_Mac_Process);
+或者
+DRV_HA_RegSlaveSwitchNotify 
+
+29、查看控制风扇
+debug sysm fan
+
+30、查看环境温度
+dis env
+
+31、查看子卡trace
+[H3C-probe]set hardware internal subcard warm-info slot 4  1 min-delay 10
+串口花线看子卡trace
+
+32、看设备管理各板状态
+[H3C-probe]display hardware internal devd all-board-state slot 5 
+[H3C-probe]display hardware internal devd ekdm slot 0 slot 0 
+
+33、导出命令树
+<H3C>bash                                                               
+$ su                                                                            
+# comsh savecmd                                                                 
+.. 
+# exit                                                                          
+$ exit                                                                          
+<H3C>dir flash:/                                                                
+Directory of flash:                                                             
+   0 -rw-      677621 Dec 26 2012 10:07:51   cmdtree.txt
+   
+   
+34、release 打印debug
+bash
+su
+echo 7 > /proc/sys/kernel/printk 
+
+======================平台打包=====================
+ar -rc cr16k_mr_mrpnc_plat_debug.a edev_cioctl.o edev_clkm.o dev_kd.o 
