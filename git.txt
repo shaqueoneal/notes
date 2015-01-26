@@ -6,3 +6,6 @@ $ declare -x HTTPS_PROXY="server:port"
 
 2、提交到github
 $ git push -u https://github.com/shaqueoneal/notes.git master
+
+3、整体提交
+$ git commit -a -m'XXX'
