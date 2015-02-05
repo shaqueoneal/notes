@@ -36,7 +36,7 @@ map(), filter(), every() and some(), reduce() and reduceRight(),indexOf() and la
 34、Nodejs模块名字空间内含全局对象export，模块API在export上定义函数即可导出，引用模块用require()
 35、+歧义解决办法：拼接 "" + a + b;  加法：a - (-b)
 36、JavaScript使用UTF16编码
-
+37、Date是js中唯一实现valueOf()和toString()转换的内置变量
 
 1、javascript四种方式嵌入html: <script></script>; <script src="">; <a href="javascript:">; onevent=""
 2、javascript脚本共享一个全局window对象，<iframe>内是另一个window对象
@@ -99,6 +99,28 @@ width和height元素会覆盖right和bottom，获取当前对象位置用getBoundingClientRect()
 31、用XMLHttpRequest可以发送form，json，xml，file(Blob)，FormData请求
 32、<script> 通过src=url后面加?jsonp=callbackname 或者&jsonp=callbackname可以处理 JSON， 这种方式叫JSONP
 33、服务器推送var ticker = new EventSource("stockprices.php"); ticker.onmessage = function(e) {e.type; e.data}
+
+jQuery：
+1、jQuery和$两个名字等价，jQuery()函数可传4类参数：css选择符，DOM对象，html标签和函数
+，为函数时文件加载完成时调用,函数this指向document对象，函数唯一一个参数就是jQuery函数，传$进去就可以在函数内部做jQuery别名用
+2、jQuery 基本方法:each(),map(),index(),is()
+3、jQuery设置方法是批量设置，获取只是第一个，设置支持对象和函数参数: html text css val addClass removeClass
+toggleClass
+4、hasClass完全可以用is替代
+5、position()只能获取，是相对于父元素的偏移;offset()能获取和设置，是对document定位
+其他定位函数width(),height()各有三个;scrollTop()和scrollLeft()不能传函数
+6、可以data()增加属性,removeData()删除属性
+7、文档操作
+插入替换函数有两种形式：
+$(target).method(content): append()   prepend()   after()       before()       replaceWith()
+$(content).method(target): appendTo() prependTo() insertAfter() insertBefore() replaceAll()
+复制：clone()
+打包：wrap() 有三个, 去打包: unwap()
+删除：empyt()删子元素；remove()删元素和子元素；detach()同remove()但是保留事件处理
+8、Focus和blur事件不冒泡，focusin和focusout冒泡；mouseover和mouseout冒泡，mouseenter和mouseleave不冒泡
+9、jQuery事件回调第一个参数是jQuery事件对象，jQuery事件对象复制了原生事件对象的属性和方法；
+回调返回false等于调用了preventDefault()和stopPropagation()，回调函数返回值都会存在jQuery事件对象的result属性里
+
 
 jquery 事件可以定义名字空间，注册事件回调可以用参数也可以用对象，事件回调函数第一个参数是jquery事件对象，有若干有用属性
 jquery 可以自定义事件：$.event.trigger("logoff")定义并触发logoff事件; $.event.trigger 不会冒泡，trigger()会冒泡

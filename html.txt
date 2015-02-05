@@ -34,3 +34,13 @@ margin-left: -100px;
 11、http请求格式
 请求：【动作】【URL】【可包含授权的可选请求头】【请求体】
 响应：【状态码】【响应头】【响应体】
+
+12、定位方法差别
+
+static: 遵循正常文档流(<body> 开始的文档流)。top，right，bottom，left等属性不会被应用。
+relative: 相对文档流定位，占据的位置不变，不影响下个元素定位，对象在可视区域之外，滚动条不会出现。
+absolute: 脱离文档流，相对非static方式定位的祖先类元素，直到<html>，left、right、top、bottom必须指定一个。
+对象在可视区域之外会导致滚动条出现。
+fixed: 脱离文档流，相对浏览器窗口定位，left、right、top、bottom必须指定一个。不会根据滚动条的滚动而进行偏移。
+
+无position定位的元素z-index属性是无效的。
