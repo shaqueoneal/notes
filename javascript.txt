@@ -104,8 +104,7 @@ jQuery：
 1、jQuery和$两个名字等价，jQuery()函数可传4类参数：css选择符，DOM对象，html标签和函数
 ，为函数时文件加载完成时调用,函数this指向document对象，函数唯一一个参数就是jQuery函数，传$进去就可以在函数内部做jQuery别名用
 2、jQuery 基本方法:each(),map(),index(),is()
-3、jQuery设置方法是批量设置，获取只是第一个，设置支持对象和函数参数: html text css val addClass removeClass
-toggleClass
+3、jQuery设置方法是批量设置，获取只是第一个，设置支持对象和函数参数: html text css val addClass removeClasstoggleClass
 4、hasClass完全可以用is替代
 5、position()只能获取，是相对于父元素的偏移;offset()能获取和设置，是对document定位
 其他定位函数width(),height()各有三个;scrollTop()和scrollLeft()不能传函数
