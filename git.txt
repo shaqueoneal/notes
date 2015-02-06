@@ -23,4 +23,4 @@ $ git commit -a -m'XXX'
 
 ·½·¨2£º
 $ git push -u https://username:password@github.com/shaqueoneal/notes.git master Èç£º
-$ git push -u https://shaqueoneal:Zslu07042@github.com/shaqueoneal/notes.git master
+git push -u https://shaqueoneal:Zslu07042@github.com/shaqueoneal/notes.git master
