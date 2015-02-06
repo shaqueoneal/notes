@@ -34,3 +34,7 @@ margin-left: -100px;
 11、http请求格式
 请求：【动作】【URL】【可包含授权的可选请求头】【请求体】
 响应：【状态码】【响应头】【响应体】
+
+12、设置css背景色透明
+方法1：设置background = color 和 opacity，会影响div上文字透明度，不推荐
+方法2：background-color = rgba() 在rgba里直接设透明度，不会影响div上文字，推荐

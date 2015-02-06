@@ -93,6 +93,42 @@ rm ~/.subversion/auth/svn.simple/*
 Windows 删除以下目录
 C:\Documents and Settings\administrator\Application Data\Subversion\auth\svn.simple
 
+10、windows网络驱动器下使用svn update出错
+update提示：
+
+Can't hide directory
+'Z:\z07042\branch\UIS_CODE\product\www\uis_metro\html\images\.svn': 拒绝访问。
+
+此时images目录已下载到本地但是内容为空，再update时候提示：
+
+Can't create directory
+'Z:\z07042\branch\UIS_CODE\product\www\uis_metro\html\images\.svn':
+当文件已存在时，无法创建该文件。
+
+根据提示尝试删除images，提示您需要来自server\nobody的权限才能进行删除
+这时候修改images的属性完全控制，提示错误不去管它，再update提示：
+
+Unable to lock 'Z:\z07042\branch\UIS_CODE\product\www\uis_metro\html\infrastructure'
+Please execute the 'Cleanup' command.
+
+总之任你怎么折腾都不好使了。
+但是在本地磁盘没有这个问题。
+经过本人超强的分析能力最后终于发现：在svn在右键快捷菜单setting里面有一项：saved data
+进入后里面有Authentication data，点击里面的clear...按钮，发现里面有个是网络驱动器的ip，原来是因为用了这个ip的身份验证导致没有权限的。
+知道原因后就好解决了，直接把这个ip对应的验证删除，然后就大功告成了！
+
+11、windows网络驱动器下checkout失败
+windows网络驱动器是通过samba在linux上创建的，先在windows下操作：
+新建一个文件夹，名字任意，这里是branch
+进入branch，一checkout就失败，提示：Z:\z07042\branch\.svn当文件已存在时，无法创建该文件
+要删除这个只有.svn子目录的branch，提示：您需要来自：server\nobody的权限，看来windows下无法删除这个文件夹了
+右键查看branch文件夹的属性，在安全页里看组或用户名里面没有nobody的组和用户。而且无法添加nobody用户。
+发现在z07042这个目录下checkout都有这个问题。
+
+由于z07042这个目录下都有这个checkout问题，这时候在linux下需要进到z07042目录，执行chmod 777 * -R
+再回到windows，这时候发现文件夹属性里面有了nobody用户，再checkout就成功了！
+
+
 
 
 

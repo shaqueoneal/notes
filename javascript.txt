@@ -36,6 +36,7 @@ map(), filter(), every() and some(), reduce() and reduceRight(),indexOf() and la
 34、Nodejs模块名字空间内含全局对象export，模块API在export上定义函数即可导出，引用模块用require()
 35、+歧义解决办法：拼接 "" + a + b;  加法：a - (-b)
 36、JavaScript使用UTF16编码
+37、数组初始化方法 a = [] 或者 a.length = 0
 
 
 1、javascript四种方式嵌入html: <script></script>; <script src="">; <a href="javascript:">; onevent=""
