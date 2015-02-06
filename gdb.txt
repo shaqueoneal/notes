@@ -84,3 +84,9 @@ cat   /sys/module/XXX/sections/.bss
 cat   /sys/module/XXX/sections/.data
 
 
+11、调试线程
+
+info threads
+
+thread 10            //行首编号
+
