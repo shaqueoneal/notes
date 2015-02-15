@@ -121,7 +121,7 @@ $(content).method(target): appendTo() prependTo() insertAfter() insertBefore() r
 8、Focus和blur事件不冒泡，focusin和focusout冒泡；mouseover和mouseout冒泡，mouseenter和mouseleave不冒泡
 9、jQuery事件回调第一个参数是jQuery事件对象，jQuery事件对象复制了原生事件对象的属性和方法；
 回调返回false等于调用了preventDefault()和stopPropagation()，回调函数返回值都会存在jQuery事件对象的result属性里
-
+10、$('p').click(f)和$('p').bind('click', f)等价都可以unbind
 
 jquery 事件可以定义名字空间，注册事件回调可以用参数也可以用对象，事件回调函数第一个参数是jquery事件对象，有若干有用属性
 jquery 可以自定义事件：$.event.trigger("logoff")定义并触发logoff事件; $.event.trigger 不会冒泡，trigger()会冒泡

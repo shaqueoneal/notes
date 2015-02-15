@@ -47,3 +47,25 @@ absolute: ÍÑÀëÎÄµµÁ÷£¬Ïà¶Ô·Çstatic·½Ê½¶¨Î»µÄ×æÏÈÀàÔªËØ£¬Ö±µ½<html>£¬left¡¢right¡
 fixed: ÍÑÀëÎÄµµÁ÷£¬Ïà¶Ôä¯ÀÀÆ÷´°¿Ú¶¨Î»£¬left¡¢right¡¢top¡¢bottom±ØĞëÖ¸¶¨Ò»¸ö¡£²»»á¸ù¾İ¹ö¶¯ÌõµÄ¹ö¶¯¶ø½øĞĞÆ«ÒÆ¡£
 
 ÎŞposition¶¨Î»µÄÔªËØz-indexÊôĞÔÊÇÎŞĞ§µÄ¡£
+
+14¡¢ÍøÒ³»º´æJs£¬cssÒÔ¼°Í¼Æ¬µ¼ÖÂÒ³ÃæË¢ĞÂÎŞĞ§¹ûµÄ½â¾ö°ì·¨
+
+·½·¨Ò»£¨phpÒ³ÃæÌí¼Ó£©£º
+header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+header("Cache-Control: no-cache, must-revalidate");
+header("Pragma: no-cache");
+
+·½·¨¶ş£¨htmlµÄhead¿éÖĞ£©£º
+<META HTTP-EQUIV="pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="expires" CONTENT="Wed, 26 Feb 1997 08:21:57 GMT">
+<META HTTP-EQUIV="expires" CONTENT="0">
+
+·½·¨Èı£º
+¶ÔÓÚÍ¼Æ¬»òÕßcss£¬¿ÉÊ¹ÓÃÈçÏÂ·½Ê½£º
+<img src="./data/avatar_mingpian_bak.jpg?rand=h9xqeI"  width="156" height="98">
+¶ÔÓÚjsÔò¿ÉÒÔÖ±½ÓÊ¹ÓÃÊ±¼ä´Á£º
+<script language="javascript" src="UILib/Common/Common.js?time=new Date()"></script>
+
+×Ü½á£ºhtmlÎÄ¼ş²»»º´æ£¬ÆäËûÔÚurlºó¼Ó?¼ÓÊ±¼ä»òÕß°æ±¾ºÅ
+
