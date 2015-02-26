@@ -1,0 +1,2 @@
+1、curl通过身份验证的http代理服务器
+curl -U z07042:Zw47XX8 -x proxy.h3c.com:8080 http://www.baidu.com
