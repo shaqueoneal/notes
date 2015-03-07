@@ -1,6 +1,7 @@
 1、msysGit如何通过http代理服务器？
 假设在windows下使用，需要首先安装msysGit，完成后右键菜单进入Git Bash，在弹出的命令行设置代理服务器：
-$ declare -x HTTPS_PROXY="username:password@server:port"
+$ declare -x HTTPS_PROXY="username:password@server:port" 如：
+declare -x HTTPS_PROXY="z07042:Zw47XX8@proxy.h3c.com:8080"
 username和password设置为代理服务器要求的用户名和密码，server和port设置为代理服务器的名称和端口，如果代理不需要身份验证直接用以下方式：
 $ declare -x HTTPS_PROXY="server:port"
 
@@ -21,8 +22,8 @@ $ git commit -a -m'XXX'
 里面就是保存的你的用户名和密码（注意是明文存储！！！）。
 
 方法2：
-$ git push -u https://username:password@github.com/shaqueoneal/notes.git master
-
+$ git push -u https://username:password@github.com/shaqueoneal/notes.git master 如：
+git push -u https://shaqueoneal:Zslu07042@github.com/shaqueoneal/notes.git master
 
 5、设置版本比较工具为beyond compare4
 git 进入git bash

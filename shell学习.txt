@@ -100,6 +100,14 @@ export 显示当前导出成用户变量的shell变量
 23、正在表达式
 匹配中文： [\u4e00-\u9fa5] 
 
+24、删除所有名字为release的目录
+find -name release -type d| xargs rm -rf
+
+25、实时查看网速
+watch ifconfig eth0
+
+26、查看io 网速 cpu 内存等等
+dstat
 
 
 

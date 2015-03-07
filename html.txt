@@ -35,8 +35,11 @@ margin-left: -100px;
 ÇëÇó£º¡¾¶¯×÷¡¿¡¾URL¡¿¡¾¿É°üº¬ÊÚÈ¨µÄ¿ÉÑ¡ÇëÇóÍ·¡¿¡¾ÇëÇóÌå¡¿
 ÏìÓ¦£º¡¾×´Ì¬Âë¡¿¡¾ÏìÓ¦Í·¡¿¡¾ÏìÓ¦Ìå¡¿
 
-12¡¢¶¨Î»·½·¨²î±ð
+12¡¢ÉèÖÃcss±³¾°É«Í¸Ã÷
+·½·¨1£ºÉèÖÃbackground = color ºÍ opacity£¬»áÓ°ÏìdivÉÏÎÄ×ÖÍ¸Ã÷¶È£¬²»ÍÆ¼ö
+·½·¨2£ºbackground-color = rgba() ÔÚrgbaÀïÖ±½ÓÉèÍ¸Ã÷¶È£¬²»»áÓ°ÏìdivÉÏÎÄ×Ö£¬ÍÆ¼ö
 
+13¡¢¶¨Î»·½·¨²î±ð
 static: ×ñÑ­Õý³£ÎÄµµÁ÷(<body> ¿ªÊ¼µÄÎÄµµÁ÷)¡£top£¬right£¬bottom£¬leftµÈÊôÐÔ²»»á±»Ó¦ÓÃ¡£
 relative: Ïà¶ÔÎÄµµÁ÷¶¨Î»£¬Õ¼¾ÝµÄÎ»ÖÃ²»±ä£¬²»Ó°ÏìÏÂ¸öÔªËØ¶¨Î»£¬¶ÔÏóÔÚ¿ÉÊÓÇøÓòÖ®Íâ£¬¹ö¶¯Ìõ²»»á³öÏÖ¡£
 absolute: ÍÑÀëÎÄµµÁ÷£¬Ïà¶Ô·Çstatic·½Ê½¶¨Î»µÄ×æÏÈÀàÔªËØ£¬Ö±µ½<html>£¬left¡¢right¡¢top¡¢bottom±ØÐëÖ¸¶¨Ò»¸ö¡£
@@ -44,3 +47,25 @@ absolute: ÍÑÀëÎÄµµÁ÷£¬Ïà¶Ô·Çstatic·½Ê½¶¨Î»µÄ×æÏÈÀàÔªËØ£¬Ö±µ½<html>£¬left¡¢right¡
 fixed: ÍÑÀëÎÄµµÁ÷£¬Ïà¶Ôä¯ÀÀÆ÷´°¿Ú¶¨Î»£¬left¡¢right¡¢top¡¢bottom±ØÐëÖ¸¶¨Ò»¸ö¡£²»»á¸ù¾Ý¹ö¶¯ÌõµÄ¹ö¶¯¶ø½øÐÐÆ«ÒÆ¡£
 
 ÎÞposition¶¨Î»µÄÔªËØz-indexÊôÐÔÊÇÎÞÐ§µÄ¡£
+
+14¡¢ÍøÒ³»º´æJs£¬cssÒÔ¼°Í¼Æ¬µ¼ÖÂÒ³ÃæË¢ÐÂÎÞÐ§¹ûµÄ½â¾ö°ì·¨
+
+·½·¨Ò»£¨phpÒ³ÃæÌí¼Ó£©£º
+header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+header("Cache-Control: no-cache, must-revalidate");
+header("Pragma: no-cache");
+
+·½·¨¶þ£¨htmlµÄhead¿éÖÐ£©£º
+<META HTTP-EQUIV="pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="expires" CONTENT="Wed, 26 Feb 1997 08:21:57 GMT">
+<META HTTP-EQUIV="expires" CONTENT="0">
+
+·½·¨Èý£º
+¶ÔÓÚÍ¼Æ¬»òÕßcss£¬¿ÉÊ¹ÓÃÈçÏÂ·½Ê½£º
+<img src="./data/avatar_mingpian_bak.jpg?rand=h9xqeI"  width="156" height="98">
+¶ÔÓÚjsÔò¿ÉÒÔÖ±½ÓÊ¹ÓÃÊ±¼ä´Á£º
+<script language="javascript" src="UILib/Common/Common.js?time=new Date()"></script>
+
+×Ü½á£ºhtmlÎÄ¼þ²»»º´æ£¬ÆäËûÔÚurlºó¼Ó?¼ÓÊ±¼ä»òÕß°æ±¾ºÅ
+
