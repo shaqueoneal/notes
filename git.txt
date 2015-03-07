@@ -22,3 +22,11 @@ $ git commit -a -m'XXX'
 
 方法2：
 $ git push -u https://username:password@github.com/shaqueoneal/notes.git master
+
+
+5、设置版本比较工具为beyond compare4
+git 进入git bash
+
+$ git config --global merge.tool bc4
+$ git config --global mergetool.bc4.cmd "\"c:/program files (x86)/beyond compar
+e 4/bcompare.exe\" \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\""
