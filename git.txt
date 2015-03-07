@@ -26,8 +26,12 @@ $ git push -u https://username:password@github.com/shaqueoneal/notes.git master 
 git push -u https://shaqueoneal:Zslu07042@github.com/shaqueoneal/notes.git master
 
 5、设置版本比较工具为beyond compare4
-git 进入git bash
+打开用户的.gitconfig文件 如： C:\Users\ASUS\.gitconfig添加如下内容：
 
-$ git config --global merge.tool bc4
-$ git config --global mergetool.bc4.cmd "\"c:/program files (x86)/beyond compar
-e 4/bcompare.exe\" \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\""
+[merge]
+	tool = bc4
+[mergetool "bc4"]
+	cmd = \"c:/program files (x86)/beyond compare 4/bcompare.exe\" \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
+
+git merge后，进入git bash 运行如下命令即可用bc4进行比较：
+$ git mergetool
