@@ -25,4 +25,13 @@ $ git commit -a -m'XXX'
 $ git push -u https://username:password@github.com/shaqueoneal/notes.git master 如：
 git push -u https://shaqueoneal:Zslu07042@github.com/shaqueoneal/notes.git master
 
-git pull -u https://shaqueoneal:Zslu07042@github.com/shaqueoneal/notes.git master
+5、设置版本比较工具为beyond compare4
+打开用户的.gitconfig文件 如： C:\Users\ASUS\.gitconfig添加如下内容：
+
+[merge]
+	tool = bc4
+[mergetool "bc4"]
+	cmd = \"c:/program files (x86)/beyond compare 4/bcompare.exe\" \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
+
+git merge后，进入git bash 运行如下命令即可用bc4进行比较：
+$ git mergetool
