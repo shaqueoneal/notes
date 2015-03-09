@@ -1,4 +1,6 @@
 linux线程资源回收： http://blog.csdn.net/skyflying2012/article/details/24655751
+linux内核态和用户态交互：http://www.kerneltravel.net/jiaoliu/005.htm
+linux系统调用：http://blog.chinaunix.net/uid-20321537-id-1966859.html
 
 加载Google字体导致网站变慢：http://www.xiaoz.me/archives/3335
 

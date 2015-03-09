@@ -1,2 +1,5 @@
 1、curl通过身份验证的http代理服务器
 curl -U z07042:Zw47XX8 -x proxy.h3c.com:8080 http://www.baidu.com
+
+2、curl下载一个自动重定向的页面（3XX错误）
+curl -U z07042:Zw47XX8 -x proxy.h3c.com:8080 -OL http://keleyi.com/keleyi/phtml/css3/11a.htm
