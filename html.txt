@@ -69,3 +69,10 @@ header("Pragma: no-cache");
 
 总结：html文件不缓存，其他在url后加?加时间或者版本号
 
+15、背景图片处理
+等比例缩放：
+background-size:50% auto;
+background-size:auto 50%;
+自动缩放：
+background-size:200px 200px;
+

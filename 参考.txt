@@ -9,3 +9,5 @@ linux系统调用：http://blog.chinaunix.net/uid-20321537-id-1966859.html
 icon做成字体：http://www.qianduan.net/css3-icon-font-guide.html
 
 tabIndex默认值：http://www.cnblogs.com/rubylouvre/archive/2009/12/07/1618182.html
+
+JavaScript模块：http://my.oschina.net/felumanman/blog/263330?p=1
