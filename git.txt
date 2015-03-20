@@ -39,4 +39,10 @@ $ git mergetool
 6、git gui 缓存改动和取消缓存
 git gui 缓存改动只需要重新扫描就可以，但是取消要点击文件名前面的文件图标才可以！
 
-7、git gui 分支复位会删除未提交的本地文件，禁用！
+7、git gui 分支复位会删除未提交的本地文件，怎么办？
+git bash 用 git stash 保存当前状态，然后用git revert恢复
+
+8、git bash怎样提交文件
+1) 先缓存修改 git add . 或者git stash
+2) git status 查看是否已缓存成功
+3) git commit
