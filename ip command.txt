@@ -51,3 +51,6 @@ root@H3C_MG9060:~# cat /proc/kbfd/session
 
 ====================≤Èø¥ping=====================
 ping -I eth0
+
+====================±£¥ÊÕ¯ø®≈‰÷√=====================
+/etc/sysconfig/network-scripts/ifcfg-ethx
