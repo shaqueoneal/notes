@@ -76,3 +76,9 @@ background-size:auto 50%;
 自动缩放：
 background-size:200px 200px;
 
+16、zoom和scale区别
+zoom不影响iframe里面像素，只改变iframe，里面内容还是原来大小
+scale把iframe整体改变，iframe里内容一起改变
+
+
+
