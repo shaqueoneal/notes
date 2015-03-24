@@ -57,3 +57,12 @@ ping -I eth0
 
 ====================route 命令显示慢====================
 通常是dns的缘故，用route -n
+
+
+====================centos 开启和关闭防火墙====================
+1） 临时生效，重启后复原
+开启： service iptables start
+关闭： service iptables stop
+2） 永久性生效，重启后不会复原
+开启： chkconfig iptables on
+关闭： chkconfig iptables off
