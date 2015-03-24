@@ -15,3 +15,7 @@ JavaScript模块：http://my.oschina.net/felumanman/blog/263330?p=1
 frame和iframe区别：http://blog.csdn.net/lyr1985/article/details/6067026
 
 node入门：http://my.oschina.net/chenhao901007/blog/312367
+		  http://segmentfault.com/blog/nark/1190000000488358
+
+json和jsonp: http://www.cnblogs.com/dowinning/archive/2012/04/19/json-jsonp-jquery.html
+			 http://blog.csdn.net/gykxp/article/details/7486861
