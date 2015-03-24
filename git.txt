@@ -46,3 +46,8 @@ git bash 用 git stash 保存当前状态，然后用git revert恢复
 1) 先缓存修改 git add . 或者git stash
 2) git status 查看是否已缓存成功
 3) git commit
+
+9、git gui缓存文件提示更新Git 缓存(index)失败,重新扫描将自动开始以重新同步git-gui
+看弹出窗口的具体错误为：
+warning: LF will be replaced by CRLF in bin/www. The file will have its original line endings in you
+进入linux，执行以下命令：find -type f | xargs unix2dos，再缓存就OK了
