@@ -51,3 +51,6 @@ git bash 用 git stash 保存当前状态，然后用git revert恢复
 看弹出窗口的具体错误为：
 warning: LF will be replaced by CRLF in bin/www. The file will have its original line endings in you
 进入linux，执行以下命令：find -type f | xargs unix2dos，再缓存就OK了
+
+10、git merge冲突
+直接打开冲突文件编辑，git gui缓存提交
