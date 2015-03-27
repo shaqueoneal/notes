@@ -20,6 +20,10 @@ node入门：http://my.oschina.net/chenhao901007/blog/312367
 json和jsonp: http://www.cnblogs.com/dowinning/archive/2012/04/19/json-jsonp-jquery.html
 			 http://blog.csdn.net/gykxp/article/details/7486861
 
-
 升级glibc：http://www.cnblogs.com/gw811/p/3676856.html
 	   http://blog.csdn.net/force_eagle/article/details/8684669
+
+ssh登录慢：http://www.linuxidc.com/Linux/2012-12/77144.htm			 
+
+node调用shell：http://www.jb51.net/article/59287.htm
+

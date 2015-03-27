@@ -24,3 +24,11 @@ curl -U username:password -x proxy.h3c.com:8080 http://www.baidu.com -o baudu.ht
 
 172.25.14.129:8080是代理服务器的ip和端口，如果服务器不需要身份验证把 -U username:password 删除就可以了。
 经过这样的设置就可以在内网通过外网链接的代理服务器上网了
+
+5、查看主机和域名服务器ip
+C:\Users\z07042>nslookup proxy.h3c.com
+服务器:  ns1.h3c.com		\\域名服务器
+Address:  10.72.66.37		\\域名服务器IP
+
+名称:    proxy.h3c.com
+Address:  172.25.14.129
