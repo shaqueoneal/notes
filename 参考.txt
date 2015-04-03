@@ -27,3 +27,10 @@ ssh登录慢：http://www.linuxidc.com/Linux/2012-12/77144.htm
 
 node调用shell：http://www.jb51.net/article/59287.htm
 
+浏览器viewport：http://www.cnblogs.com/2050/p/3877280.html
+
+mongodb复用连接: http://mongodb.github.io/node-mongodb-native/driver-articles/mongoclient.html#mongoclient-connect
+				 http://www.jdon.com/idea/nodejs/node-express-mongo.html
+				 http://www.toolmao.com/nodejs-express-ejs-mongodb-server
+				 http://my.oschina.net/u/1582119/blog/221091	Express + Mongoose 极简入门
+

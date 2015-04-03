@@ -80,5 +80,22 @@ background-size:200px 200px;
 zoom不影响iframe里面像素，只改变iframe，里面内容还是原来大小
 scale把iframe整体改变，iframe里内容一起改变
 
+17、把多个网页缩小后在一个页面显示
+iframe{
+width:800px;
+height:400px;
+-webkit-transform:scale(0.5);
+-webkit-transform-origin:left top;
+}
+div{
+width:400px;
+height:200px;
+border:1px #000 solid;
+}
+<div>
+<iframe scrolling="no" src="要显示的网页.html"></iframe>
+</div>
+
+
 
 
