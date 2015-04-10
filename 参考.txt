@@ -1,6 +1,7 @@
 linux线程资源回收： http://blog.csdn.net/skyflying2012/article/details/24655751
 linux内核态和用户态交互：http://www.kerneltravel.net/jiaoliu/005.htm
 linux系统调用：http://blog.chinaunix.net/uid-20321537-id-1966859.html
+linux软件下载：http://www.gnu.org
 
 加载Google字体导致网站变慢：http://www.xiaoz.me/archives/3335
 
@@ -22,6 +23,7 @@ json和jsonp: http://www.cnblogs.com/dowinning/archive/2012/04/19/json-jsonp-jque
 
 升级glibc：http://www.cnblogs.com/gw811/p/3676856.html
 	   http://blog.csdn.net/force_eagle/article/details/8684669
+	   http://fanli7.net/a/bianchengyuyan/C__/20140412/490904.html 【linux】提示"libc.so.6: version `GLIBC_2.14' not found",系統的glibc版本太低
 
 ssh登录慢：http://www.linuxidc.com/Linux/2012-12/77144.htm			 
 
