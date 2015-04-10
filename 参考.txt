@@ -29,3 +29,5 @@ ssh登录慢：http://www.linuxidc.com/Linux/2012-12/77144.htm
 
 node调用shell：http://www.jb51.net/article/59287.htm
 
+Javascript、Jquery获取浏览器和屏幕各种高度宽度：http://www.cnblogs.com/EricaMIN1987_IT/p/3593431.html
+
