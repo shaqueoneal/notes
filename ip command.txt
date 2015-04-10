@@ -66,3 +66,8 @@ ping -I eth0
 2） 永久性生效，重启后不会复原
 开启： chkconfig iptables on
 关闭： chkconfig iptables off
+
+Linux DNS设置优先级顺序
+1 hosts文件：/etc/hosts
+2 网卡配置文件DNS服务地址：/etc/sysconfig/network-scripts/ifcfg-ethx
+3 /etc/resolv.conf

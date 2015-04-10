@@ -2,6 +2,7 @@ linux线程资源回收： http://blog.csdn.net/skyflying2012/article/details/24655751
 linux内核态和用户态交互：http://www.kerneltravel.net/jiaoliu/005.htm
 linux系统调用：http://blog.chinaunix.net/uid-20321537-id-1966859.html
 linux软件下载：http://www.gnu.org
+linux和windows文件编码转换：http://www.cnblogs.com/hnrainll/archive/2012/11/22/2783517.html
 
 加载Google字体导致网站变慢：http://www.xiaoz.me/archives/3335
 
@@ -30,4 +31,11 @@ ssh登录慢：http://www.linuxidc.com/Linux/2012-12/77144.htm
 node调用shell：http://www.jb51.net/article/59287.htm
 
 Javascript、Jquery获取浏览器和屏幕各种高度宽度：http://www.cnblogs.com/EricaMIN1987_IT/p/3593431.html
+浏览器viewport：http://www.cnblogs.com/2050/p/3877280.html
 
+mongodb复用连接: http://mongodb.github.io/node-mongodb-native/driver-articles/mongoclient.html#mongoclient-connect
+				 http://www.jdon.com/idea/nodejs/node-express-mongo.html
+				 http://www.toolmao.com/nodejs-express-ejs-mongodb-server
+				 http://my.oschina.net/u/1582119/blog/221091	Express + Mongoose 极简入门
+				 http://www.tuicool.com/articles/77V3maV	Mongoose:Schema之路
+				 http://my.oschina.net/antianlu/blog/187023	Node.js express 之mongoose 从异步回调函数返回值，类似于同步

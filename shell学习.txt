@@ -109,6 +109,5 @@ watch ifconfig eth0
 26、查看io 网速 cpu 内存等等
 dstat
 
-
-
-
+27、samba后文件拒绝访问
+smbstatus 分析，一般在拒绝访问的上级目录加权限即可
