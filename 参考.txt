@@ -1,7 +1,11 @@
+Linux:
 linux线程资源回收： http://blog.csdn.net/skyflying2012/article/details/24655751
 linux内核态和用户态交互：http://www.kerneltravel.net/jiaoliu/005.htm
 linux系统调用：http://blog.chinaunix.net/uid-20321537-id-1966859.html
 linux和windows文件编码转换：http://www.cnblogs.com/hnrainll/archive/2012/11/22/2783517.html
+
+html:
+Chrome 使用技巧：http://tutorialzine.com/2015/03/15-must-know-chrome-devtools-tips-tricks/
 
 加载Google字体导致网站变慢：http://www.xiaoz.me/archives/3335
 
