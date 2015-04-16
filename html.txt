@@ -96,6 +96,14 @@ border:1px #000 solid;
 <iframe scrolling="no" src="要显示的网页.html"></iframe>
 </div>
 
+18、css定义冲突解决
+方法一 细化选择符
+.abc前面加多一个父元素的选择符：
+.container .abc {background:#fff}
+方法二 提升样式的优先级
+.abc {background:#fff !important;}
+方法三 改变两个样式的加载顺序
+细化css加载在全局css之后，这样后面的样式就会自动覆盖前面的样式
 
 
 

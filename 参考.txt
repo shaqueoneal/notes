@@ -1,12 +1,14 @@
+Linux:
 linux线程资源回收： http://blog.csdn.net/skyflying2012/article/details/24655751
 linux内核态和用户态交互：http://www.kerneltravel.net/jiaoliu/005.htm
 linux系统调用：http://blog.chinaunix.net/uid-20321537-id-1966859.html
 linux软件下载：http://www.gnu.org
 linux和windows文件编码转换：http://www.cnblogs.com/hnrainll/archive/2012/11/22/2783517.html
 
+Html:
+Chrome 使用技巧：http://tutorialzine.com/2015/03/15-must-know-chrome-devtools-tips-tricks/
 
 css3技巧: http://tutorialzine.com/2013/10/12-awesome-css3-features-you-can-finally-use/
-
 
 加载Google字体导致网站变慢：http://www.xiaoz.me/archives/3335
 
@@ -16,9 +18,12 @@ icon做成字体：http://www.qianduan.net/css3-icon-font-guide.html
 
 tabIndex默认值：http://www.cnblogs.com/rubylouvre/archive/2009/12/07/1618182.html
 
-JavaScript模块：http://my.oschina.net/felumanman/blog/263330?p=1
-
 frame和iframe区别：http://blog.csdn.net/lyr1985/article/details/6067026
+
+JavaScript：
+JavaScript模块：http://my.oschina.net/felumanman/blog/263330?p=1
+(function() {}).call(this)写法: http://segmentfault.com/q/1010000002519489/a-1020000002521688
+
 
 node入门：http://my.oschina.net/chenhao901007/blog/312367
 		  http://segmentfault.com/blog/nark/1190000000488358
