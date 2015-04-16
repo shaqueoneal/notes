@@ -4,6 +4,10 @@ linux系统调用：http://blog.chinaunix.net/uid-20321537-id-1966859.html
 linux软件下载：http://www.gnu.org
 linux和windows文件编码转换：http://www.cnblogs.com/hnrainll/archive/2012/11/22/2783517.html
 
+
+css3技巧: http://tutorialzine.com/2013/10/12-awesome-css3-features-you-can-finally-use/
+
+
 加载Google字体导致网站变慢：http://www.xiaoz.me/archives/3335
 
 鼠标移至div内部其他层时，触发mouseout：http://www.cnblogs.com/xwgli/p/3591991.html
