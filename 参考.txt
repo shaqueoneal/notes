@@ -20,6 +20,8 @@ tabIndex默认值：http://www.cnblogs.com/rubylouvre/archive/2009/12/07/1618182.htm
 
 frame和iframe区别：http://blog.csdn.net/lyr1985/article/details/6067026
 
+css3 3d知识：http://www.zhangxinxu.com/wordpress/2012/09/css3-3d-transform-perspective-animate-transition/
+
 JavaScript：
 JavaScript模块：http://my.oschina.net/felumanman/blog/263330?p=1
 (function() {}).call(this)写法: http://segmentfault.com/q/1010000002519489/a-1020000002521688

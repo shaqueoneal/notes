@@ -60,3 +60,6 @@ old mode 100755
 new mode 100644
 让git忽略掉文件权限检查：
 git config --add core.filemode false
+
+12、git手动删除文件后本地提交
+git add -A .
