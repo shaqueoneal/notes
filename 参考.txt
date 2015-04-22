@@ -7,20 +7,14 @@ linux和windows文件编码转换：http://www.cnblogs.com/hnrainll/archive/2012/11/22/2
 
 Html:
 Chrome 使用技巧：http://tutorialzine.com/2015/03/15-must-know-chrome-devtools-tips-tricks/
-
 css3技巧: http://tutorialzine.com/2013/10/12-awesome-css3-features-you-can-finally-use/
-
 加载Google字体导致网站变慢：http://www.xiaoz.me/archives/3335
-
 鼠标移至div内部其他层时，触发mouseout：http://www.cnblogs.com/xwgli/p/3591991.html
-
 icon做成字体：http://www.qianduan.net/css3-icon-font-guide.html
-
 tabIndex默认值：http://www.cnblogs.com/rubylouvre/archive/2009/12/07/1618182.html
-
 frame和iframe区别：http://blog.csdn.net/lyr1985/article/details/6067026
-
 2012年最精彩的15个 CSS3 教程：http://www.cnblogs.com/lhb25/archive/2013/01/13/css3-tutorials-best-of-2012.html
+css3 3d知识：http://www.zhangxinxu.com/wordpress/2012/09/css3-3d-transform-perspective-animate-transition/
 
 JavaScript：
 JavaScript模块：http://my.oschina.net/felumanman/blog/263330?p=1

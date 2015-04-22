@@ -66,3 +66,6 @@ git pull -s ours -u https://shaqueoneal:Zslu07042@github.com/shaqueoneal/nodejs-
 
 13、git 清除本地缓存的文件
 git checkout .
+
+14、git手动删除文件后本地提交
+git add -A .
