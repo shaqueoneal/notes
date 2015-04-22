@@ -63,3 +63,6 @@ git config --add core.filemode false
 
 12、git merge冲突强制用本地版本
 git pull -s ours -u https://shaqueoneal:Zslu07042@github.com/shaqueoneal/nodejs-demo.git master
+
+13、git 清除本地缓存的文件
+git checkout .
