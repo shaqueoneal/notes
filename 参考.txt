@@ -4,6 +4,11 @@ linux内核态和用户态交互：http://www.kerneltravel.net/jiaoliu/005.htm
 linux系统调用：http://blog.chinaunix.net/uid-20321537-id-1966859.html
 linux软件下载：http://www.gnu.org
 linux和windows文件编码转换：http://www.cnblogs.com/hnrainll/archive/2012/11/22/2783517.html
+升级glibc：http://www.cnblogs.com/gw811/p/3676856.html
+	   http://blog.csdn.net/force_eagle/article/details/8684669
+	   http://fanli7.net/a/bianchengyuyan/C__/20140412/490904.html 【linux】提示"libc.so.6: version `GLIBC_2.14' not found",系統的glibc版本太低
+
+ssh登录慢：http://www.linuxidc.com/Linux/2012-12/77144.htm	
 
 Html:
 Chrome 使用技巧：http://tutorialzine.com/2015/03/15-must-know-chrome-devtools-tips-tricks/
@@ -20,23 +25,19 @@ JavaScript：
 JavaScript模块：http://my.oschina.net/felumanman/blog/263330?p=1
 (function() {}).call(this)写法: http://segmentfault.com/q/1010000002519489/a-1020000002521688
 
-
+Nodejs：
 node入门：http://my.oschina.net/chenhao901007/blog/312367
 		  http://segmentfault.com/blog/nark/1190000000488358
 
 json和jsonp: http://www.cnblogs.com/dowinning/archive/2012/04/19/json-jsonp-jquery.html
 			 http://blog.csdn.net/gykxp/article/details/7486861
-
-升级glibc：http://www.cnblogs.com/gw811/p/3676856.html
-	   http://blog.csdn.net/force_eagle/article/details/8684669
-	   http://fanli7.net/a/bianchengyuyan/C__/20140412/490904.html 【linux】提示"libc.so.6: version `GLIBC_2.14' not found",系統的glibc版本太低
-
-ssh登录慢：http://www.linuxidc.com/Linux/2012-12/77144.htm			 
+		 
+Javascript、Jquery获取浏览器和屏幕各种高度宽度：http://www.cnblogs.com/EricaMIN1987_IT/p/3593431.html
+浏览器viewport：http://www.cnblogs.com/2050/p/3877280.html
 
 node调用shell：http://www.jb51.net/article/59287.htm
 
-Javascript、Jquery获取浏览器和屏幕各种高度宽度：http://www.cnblogs.com/EricaMIN1987_IT/p/3593431.html
-浏览器viewport：http://www.cnblogs.com/2050/p/3877280.html
+nodej子进程：http://blog.fens.me/nodejs-child-process/
 
 mongodb复用连接: http://mongodb.github.io/node-mongodb-native/driver-articles/mongoclient.html#mongoclient-connect
 				 http://www.jdon.com/idea/nodejs/node-express-mongo.html
