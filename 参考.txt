@@ -9,6 +9,8 @@ linux和windows文件编码转换：http://www.cnblogs.com/hnrainll/archive/2012/11/22/2
 	   http://fanli7.net/a/bianchengyuyan/C__/20140412/490904.html 【linux】提示"libc.so.6: version `GLIBC_2.14' not found",系統的glibc版本太低
 
 ssh登录慢：http://www.linuxidc.com/Linux/2012-12/77144.htm	
+Linux加入windows域：http://rainbird.blog.51cto.com/211214/197509/
+DNS服务器搭建：http://tanxw.blog.51cto.com/4309543/1376091
 
 Html:
 Chrome 使用技巧：http://tutorialzine.com/2015/03/15-must-know-chrome-devtools-tips-tricks/
@@ -20,6 +22,7 @@ tabIndex默认值：http://www.cnblogs.com/rubylouvre/archive/2009/12/07/1618182.htm
 frame和iframe区别：http://blog.csdn.net/lyr1985/article/details/6067026
 2012年最精彩的15个 CSS3 教程：http://www.cnblogs.com/lhb25/archive/2013/01/13/css3-tutorials-best-of-2012.html
 css3 3d知识：http://www.zhangxinxu.com/wordpress/2012/09/css3-3d-transform-perspective-animate-transition/
+前端工具：http://www.codetc.com/article-25-1.html
 
 JavaScript：
 JavaScript模块：http://my.oschina.net/felumanman/blog/263330?p=1

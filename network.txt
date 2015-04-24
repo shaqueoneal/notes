@@ -1,0 +1,25 @@
+1、Linux DNS设置优先级顺序
+1 hosts文件：/etc/hosts
+2 网卡配置文件DNS服务地址：/etc/sysconfig/network-scripts/ifcfg-ethx
+3 /etc/resolv.conf
+
+2、查看DNS服务器和解析域名
+nslookup host
+Server:         10.72.66.37
+Address:        10.72.66.37#53
+
+3、linux和windows怎么相互获取主机名
+nmblookup
+
+1. 让Windows通过域名访问Linux
+vi /etc/samba/smb.conf
+打开netbios name一项，并给出一个netbios名。
+重启smb和nmb服务
+sudo service restart smb
+sudo service restart nmb
+
+2. 让Linux可以通过域名访问Windows（或其他开启了netbios名的Linux）
+vi /etc/nsswitch.conf
+在hosts项中加入wins：
+hosts:           files wins dns		？
+ping   Windows域名    以确认

@@ -67,11 +67,4 @@ ping -I eth0
 开启： chkconfig iptables on
 关闭： chkconfig iptables off
 
-Linux DNS设置优先级顺序
-1 hosts文件：/etc/hosts
-2 网卡配置文件DNS服务地址：/etc/sysconfig/network-scripts/ifcfg-ethx
-3 /etc/resolv.conf
-
-查看DNS服务器和解析域名
-nslookup
 
