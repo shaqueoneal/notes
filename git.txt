@@ -70,12 +70,11 @@ git checkout .
 14、git手动删除文件后本地提交
 git add -A .
 
-15、git忽略跟踪特定文件
-1）进入工作目录，新建.gitignore文件，写入你要忽略的文件：
+15、git忽略跟踪特定文件和目录
+1）进入工作目录，新建.gitignore文件，写入你要忽略的文件和目录：
 *.o
-*.so
-*.db
+product/uis/pack-bdsrv/
 ~
 保存文件
-2）git rm --cached *.o *.so *.db 删除git跟踪的文件
-3）提交修改 git commit -m'ignore .o .so .db'  即可
+2）git rm --cached *.o删除git跟踪的文件
+3）提交修改 git commit -m'ignore .o'  即可

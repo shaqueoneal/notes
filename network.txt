@@ -8,18 +8,10 @@ nslookup host
 Server:         10.72.66.37
 Address:        10.72.66.37#53
 
-3、linux和windows怎么相互获取主机名
-nmblookup
+3、已知IP，linux和windows怎么相互获取主机名
+Linux获取windows主机名：
+nmblookup -A 10.99.73.100
 
-1. 让Windows通过域名访问Linux
-vi /etc/samba/smb.conf
-打开netbios name一项，并给出一个netbios名。
-重启smb和nmb服务
-sudo service restart smb
-sudo service restart nmb
-
-2. 让Linux可以通过域名访问Windows（或其他开启了netbios名的Linux）
-vi /etc/nsswitch.conf
-在hosts项中加入wins：
-hosts:           files wins dns		？
-ping   Windows域名    以确认
+Windows获取Linux主机名：
+Linux下要安装smb，然后启动NetBIOS服务：service nmb start
+ping -a 10.99.73.184
