@@ -50,3 +50,5 @@ mongodb复用连接: http://mongodb.github.io/node-mongodb-native/driver-articles/mo
 				 http://my.oschina.net/antianlu/blog/187023	Node.js express 之mongoose 从异步回调函数返回值，类似于同步
 				 
 express-session：http://spartan1.iteye.com/blog/1729148
+
+npm使用：http://www.cnblogs.com/laozhbook/p/npm_help.html?utm_source=tuicool

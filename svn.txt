@@ -132,3 +132,7 @@ windows网络驱动器是通过samba在linux上创建的，先在windows下操作：
 
 12、svn提交时提示svn: The log message is a pathname (was -F intended?); use '--force-log' to override
 错误是因为为log信息和当前文件夹下一个文件的名字相同造成的，随便修改下-m的信息就行了
+
+13、svn服务器改ip后客户端不能更新
+海龟：找到relocate菜单，填入新ip即可
+命令行：svn switch –relocate “url1” “url2”
