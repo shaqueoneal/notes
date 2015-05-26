@@ -23,6 +23,7 @@ frame和iframe区别：http://blog.csdn.net/lyr1985/article/details/6067026
 2012年最精彩的15个 CSS3 教程：http://www.cnblogs.com/lhb25/archive/2013/01/13/css3-tutorials-best-of-2012.html
 css3 3d知识：http://www.zhangxinxu.com/wordpress/2012/09/css3-3d-transform-perspective-animate-transition/
 前端工具：http://www.codetc.com/article-25-1.html
+文字和图片在同一行显示：http://www.jb51.net/css/177178.html
 
 JavaScript：
 JavaScript模块：http://my.oschina.net/felumanman/blog/263330?p=1

@@ -6,3 +6,6 @@ curl -U z07042:Zw47XX8 -x proxy.h3c.com:8080 -OL http://keleyi.com/keleyi/phtml/
 
 3、按原有文件名保存
 curl -U z07042:Zw47XX8 -x proxy.h3c.com:8080 -O http://cdn.bootcss.com/jquery/1.11.2/jquery.min.map
+
+4、组装http访问命令
+用chrome浏览器打开网页，在调试窗口的network标签页，右键copy as cURL
