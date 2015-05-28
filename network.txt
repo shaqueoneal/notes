@@ -15,3 +15,11 @@ nmblookup -A 10.99.73.100
 Windows获取Linux主机名：
 Linux下要安装smb，然后启动NetBIOS服务：service nmb start
 ping -a 10.99.73.184
+
+4、获取端口是哪个进程占用的
+Linux:
+netstat -apn | grep 9010
+
+Windows：
+netstat -nao | findstr 9010
+tasklist | findstr 3017

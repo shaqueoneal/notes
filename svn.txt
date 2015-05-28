@@ -59,6 +59,8 @@ passwd：
 [users]
 root = 123456
 
+所有语句前不允许空格
+
 2、ci两个目录？
 svn ci include/ product/
 
@@ -126,9 +128,11 @@ windows网络驱动器是通过samba在linux上创建的，先在windows下操作：
 发现在z07042这个目录下checkout都有这个问题。
 
 由于z07042这个目录下都有这个checkout问题，这时候在linux下需要进到z07042目录，执行chmod 777 * -R
-再回到windows，这时候发现文件夹属性里面有了nobody用户，再checkout就成功了！
+再回到windows，这时候发现文件夹属性里面有了nobody用户，设置该用户权限为完全控制，再checkout就成功了！
 
+12、svn提交时提示svn: The log message is a pathname (was -F intended?); use '--force-log' to override
+错误是因为为log信息和当前文件夹下一个文件的名字相同造成的，随便修改下-m的信息就行了
 
-
-
-
+13、svn服务器改ip后客户端不能更新
+海龟：找到relocate菜单，填入新ip即可
+命令行：svn switch –relocate “url1” “url2”
