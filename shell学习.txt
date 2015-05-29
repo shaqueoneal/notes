@@ -115,3 +115,17 @@ smbstatus 分析，一般在拒绝访问的上级目录加权限即可
 28、让子进程顺序执行
 命令1 && 命令2：如果命令1执行成功那么执行命令2
 命令1 || 命令2：如果命令1执行失败那么执行命令2
+
+29、让samba支持软链接
+sudo vim /etc/samba/smb.conf
+在配置文件的“[global]”节的最后，加上下面三条设置：
+follow symlinks = yes
+wide links = yes
+unix extensions = no
+然后保存退出，最后重启下samba即可：
+sudo /etc/init.d/smb restart
+至此问题解决，可以正常访问软连接的文件了。
+
+30、查看内核版本和发行版本
+uname -a
+cat /etc/redhat-release
