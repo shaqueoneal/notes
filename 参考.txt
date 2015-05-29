@@ -41,7 +41,7 @@ Javascript、Jquery获取浏览器和屏幕各种高度宽度：http://www.cnblogs.com/EricaMIN1
 
 node调用shell：http://www.jb51.net/article/59287.htm
 
-nodej子进程：http://blog.fens.me/nodejs-child-process/
+nodejs子进程：http://blog.fens.me/nodejs-child-process/
 
 mongodb复用连接: http://mongodb.github.io/node-mongodb-native/driver-articles/mongoclient.html#mongoclient-connect
 				 http://www.jdon.com/idea/nodejs/node-express-mongo.html
@@ -49,7 +49,10 @@ mongodb复用连接: http://mongodb.github.io/node-mongodb-native/driver-articles/mo
 				 http://my.oschina.net/u/1582119/blog/221091	Express + Mongoose 极简入门
 				 http://www.tuicool.com/articles/77V3maV	Mongoose:Schema之路
 				 http://my.oschina.net/antianlu/blog/187023	Node.js express 之mongoose 从异步回调函数返回值，类似于同步
-				 
-express-session：http://spartan1.iteye.com/blog/1729148
 
+express session：http://www.cnblogs.com/chenchenluo/p/4197181.html
+		 http://spartan1.iteye.com/blog/1729148
+
+快速搭建 Node.js 开发环境以及加速 npm: https://cnodejs.org/topic/5338c5db7cbade005b023c98
 npm使用：http://www.cnblogs.com/laozhbook/p/npm_help.html?utm_source=tuicool
+
