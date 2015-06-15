@@ -27,10 +27,42 @@ tasklist | findstr 3017
 5、Linux配置多网卡
 touch /etc/sysconfig/network-scripts/ifcfg-eth0:1
 编辑配置文件：
-DEVICE=eth0:1
+DEVICE="eth0:1"
 ONBOOT=yes
 BOOTPROTO=static
 IPADDR=192.168.3.231
-NETMASK=255.255.255.0
+PREFIX=24
+IPV4_FAILURE_FATAL=yes
+IPV6INIT=no
+NAME="System eth0:1"
 重启network：
 service network restart 或者 /etc/rc.d/init.d/network restart 
+
+6、ping 提示 No buffer space available 解决办法
+是arp缓存表不足的缘故，查看arp缓存条数限制：
+cat /proc/sys/net/ipv4/neigh/default/gc_thresh3 
+1024
+查看arp缓存表实际条数：
+arp -a | wc -l
+1023
+
+看到arp表已经满了，这时候有两种处理办法：
+1)增加arp表长度：
+echo 8192 > /proc/sys/net/ipv4/neigh/default/gc_thresh3 
+
+2)清除arp缓存表，副作用是用到时会需要重新获取
+直接清除：
+arp -n|awk '/^[1-9]/{system("arp -d "$1)}'
+
+等老化时间到时清除：
+ip neigh flush  dev eth0
+
+3)只清除arp中无效的表项，推荐
+arp -a 看到很多
+(192.168.5.192) at <incomplete> on eth0
+的表项，说明是获取mac失败的，即ping不通的表项占了很大一部分表空间
+这时用
+ip link set arp off eth0
+ip link set arp on dev eth0
+可以让这些表项消失
+

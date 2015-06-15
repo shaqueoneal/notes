@@ -1,0 +1,7 @@
+1、启动和重启httpd
+httpd -k start
+httpd -k restart
+
+2、http配置文件
+/usr/local/apache/conf/httpd.conf
+修改后重启httpd生效

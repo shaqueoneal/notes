@@ -129,3 +129,28 @@ sudo /etc/init.d/smb restart
 30、查看内核版本和发行版本
 uname -a
 cat /etc/redhat-release
+
+31、修改进程打开最大文件数
+1）ulimit -n 2048	对当前进程有效
+2）修改linux系统参数。vi /etc/security/limits.conf 添加
+*　　soft　　nofile　　65536
+*　　hard　　nofile　　65536
+重新登录生效
+
+32、让linux进程在指定核上运行
+1）显示进程运行的CPU
+taskset -p 21184
+2）指定进程运行在某个特定的CPU上
+taskset -pc 3 21184
+3）进程启动时指定CPU
+taskset -c 2 ./redis-server ../redis.conf
+
+33、切换root用户失败
+$ su - root
+su: cannot set groups: Operation not permitted
+
+执行以下命令：
+chown -R root:root /bin/su
+chmod a+s /bin/su
+ll /bin/su
+-rwsrwsrwx 1 root root 23960 Mar  1  2010 /bin/su
