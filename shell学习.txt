@@ -131,11 +131,13 @@ uname -a
 cat /etc/redhat-release
 
 31、修改进程打开最大文件数
-1）ulimit -n 2048	对当前进程有效
+1）ulimit -n 2048	对当前shell打开的进程有效
 2）修改linux系统参数。vi /etc/security/limits.conf 添加
-*　　soft　　nofile　　65536
-*　　hard　　nofile　　65536
-重新登录生效
+*　　soft　　nofile　　65534
+*　　hard　　nofile　　65534
+重新登录，所有进程永久生效
+3)echo 65534 > /proc/sys/fs/file-max
+所有进程生效，重启失效
 
 32、让linux进程在指定核上运行
 1）显示进程运行的CPU
@@ -154,3 +156,9 @@ chown -R root:root /bin/su
 chmod a+s /bin/su
 ll /bin/su
 -rwsrwsrwx 1 root root 23960 Mar  1  2010 /bin/su
+
+34、查看进程打开的文件句柄
+单个
+lsof -p `ps aux  | grep -m1 processnames| awk '{print $2}'`
+全部
+lsof -n |awk '{print $2 " " $3}'|sort|uniq -c |sort -nr|more

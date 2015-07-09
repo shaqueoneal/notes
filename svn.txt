@@ -82,7 +82,7 @@ iptables -I INPUT -p tcp --dport 3690 -j ACCEPT   #3690端口
 /etc/init.d/iptables save 		          #保存配置
 
 7、提交时提示$SVN_EDITOR未定义错误？
-进入用户文件夹 ls-al, 找到隐藏的.bash_profile 如 /root/.bash_profile
+进入用户文件夹 ls -al, 找到隐藏的.bash_profile 如 /root/.bash_profile
 添加一行
 export SVN_EDITOR="vi"
 保存后重新登录即可
@@ -136,3 +136,18 @@ windows网络驱动器是通过samba在linux上创建的，先在windows下操作：
 13、svn服务器改ip后客户端不能更新
 海龟：找到relocate菜单，填入新ip即可
 命令行：svn switch –relocate “url1” “url2”
+
+14、svn 清理失败 (clean up 失败) 的解决方法
+下载 sqlite3.exe 到.svn同级目录
+sqlite3 .svn/wc.db "select * from work_queue"
+sqlite3 .svn/wc.db "delete from work_queue"
+
+15、win7下每次提交提示错误
+Commit succeeded, but other errors follow:
+Error bumping revisions post-commit (details follow):
+
+方法1：修改工作目录上级目录权限:
+chmod 777 dir -R
+
+方法2：在 smb.conf 中增加一行
+delete readonly = yes
