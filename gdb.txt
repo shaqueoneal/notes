@@ -83,9 +83,33 @@ cat   /sys/module/XXX/sections/.text
 cat   /sys/module/XXX/sections/.bss
 cat   /sys/module/XXX/sections/.data
 
-11、调试线程
-
+11、调试线程
 info threads
-
 thread 10            //行首编号
+
+12、进程cpu高
+1) top 查看到进程8264 cpu高
+2) 查看进程中占用cpu高的线程，找到占用cpu时间高的线程 id 8413
+$ps -m -o tid,cpu,time -p 8264
+或者
+$top -H -p 8264
+或者
+ps -eL |grep 8264
+
+3) 查看调用栈
+gstack 8413
+
+4) gdb 找到8413线程进入 
+$ gdb 
+attach 8264
+info threads
+thread tid
+接下来可以单步执行，此时默认其他进程的线程会停止，
+如需打开用 set schedule-multiple on
+
+13、打断点
+break file:line
+
+14、解析地址
+x 0x00000039df8e890d
 

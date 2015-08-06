@@ -108,5 +108,15 @@ border:1px #000 solid;
 19、marquee在chrome浏览器不会自动开始滚动
 删除height 和 width 属性
 
+20、按钮点击按下效果
+a:active {
+   position: relative;
+   top: 2px;
+}
 
+21、设置 <a> 的click事件
+错误做法：
+$("a").click()
+正确做法：
+$("a").attr("onclick","alert(123);");
 

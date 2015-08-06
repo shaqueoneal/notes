@@ -58,3 +58,8 @@ express session：http://www.cnblogs.com/chenchenluo/p/4197181.html
 快速搭建 Node.js 开发环境以及加速 npm: https://cnodejs.org/topic/5338c5db7cbade005b023c98
 npm使用：http://www.cnblogs.com/laozhbook/p/npm_help.html?utm_source=tuicool
 
+SVN:
+svn错误：http://blog.csdn.net/a82168506/article/details/7084599
+
+C++:
+const用法：http://blog.csdn.net/zcf1002797280/article/details/7816977
