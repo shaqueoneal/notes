@@ -78,3 +78,6 @@ product/uis/pack-bdsrv/
 保存文件
 2）git rm --cached *.o删除git跟踪的文件
 3）提交修改 git commit -m'ignore .o'  即可
+
+16、github push 提交代码时停止在writing objects怎么办
+git config --global http.postBuffer 524288000
