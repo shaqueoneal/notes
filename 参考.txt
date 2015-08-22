@@ -56,6 +56,9 @@ express session：http://www.cnblogs.com/chenchenluo/p/4197181.html
 		 http://spartan1.iteye.com/blog/1729148
 
 快速搭建 Node.js 开发环境以及加速 npm: https://cnodejs.org/topic/5338c5db7cbade005b023c98
+node-formidable：https://cnodejs.org/topic/4f16442ccae1f4aa2700104d
+
+
 npm使用：http://www.cnblogs.com/laozhbook/p/npm_help.html?utm_source=tuicool
 
 SVN:
