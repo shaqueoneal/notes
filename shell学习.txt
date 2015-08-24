@@ -162,3 +162,6 @@ ll /bin/su
 lsof -p `ps aux  | grep -m1 processnames| awk '{print $2}'`
 全部
 lsof -n |awk '{print $2 " " $3}'|sort|uniq -c |sort -nr|more
+
+35、查看wwn
+ls -l /dev/disk/by-id/

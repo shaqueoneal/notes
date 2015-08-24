@@ -27,14 +27,23 @@ tasklist | findstr 3017
 5、Linux配置多网卡
 touch /etc/sysconfig/network-scripts/ifcfg-eth0:1
 编辑配置文件：
-DEVICE="eth0:1"
-ONBOOT=yes
-BOOTPROTO=static
-IPADDR=192.168.3.231
-PREFIX=24
+DEVICE=eth0
+TYPE=Ethernet
+UUID=17850361-d421-469c-8e84-3af4dcb8f9a9
+ONBOOT=yes				//系统启动时是否自动加载
+NM_CONTROLLED=yes
+BOOTPROTO=none				//网卡启用时获取IP协议： --static:静态协议 --bootp协议 --dhcp协议
+HWADDR=1C:6A:7A:18:D2:B6	//MAC地址
+IPADDR=192.168.3.254
+PREFIX=16					//默认路由掩码长度
+DEFROUTE=yes				//生成默认路由
 IPV4_FAILURE_FATAL=yes
 IPV6INIT=no
-NAME="System eth0:1"
+NAME="System eth0"
+DNS1=202.205.XXX.XX
+DNS2=219.142.XXX.XXX
+GATEWAY=202.205.XXX.XX
+
 重启network：
 service network restart 或者 /etc/rc.d/init.d/network restart 
 
@@ -66,3 +75,13 @@ ip link set arp off eth0
 ip link set arp on dev eth0
 可以让这些表项消失
 
+7、查看网口是否UP
+1)if config eth0
+UP BROADCAST RUNNING MULTICAST 
+如果有RUNNING说明UP 否则是DOWN
+2)ethtool eth0 
+Link detected: no
+
+8、ping“无法访问目标主机”和“请求超时”的区别
+请求超时：经过的路由器或交换机上有这个路由
+无法访问目标主机：经过的路由器或交换机上没这个路由

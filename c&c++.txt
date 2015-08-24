@@ -1,0 +1,15 @@
+C：
+1、// %.*s 其中的.*表示显示的精度 对字符串输出(s)类型来说就是宽度
+// 这个*代表的值由后面的参数列表中的整数型(int)值给出
+
+// 例如：
+printf("%.*s\n", 1, "abc");        // 输出a
+printf("%.*s\n", 2, "abc");        // 输出ab
+printf("%.*s\n", 3, "abc");        // 输出abc >3是一样的效果 因为输出类型type = s，遇到'\0'会结束
+
+C++：
+1、const不同的函数可以重载
+2、函数末尾的const：
+	1）只能声名 member function
+	2）const member function 不能修改对象的任意成员, mutable定义成员可以消除const影响
+	3）const member function 不能调用非 const member function 
