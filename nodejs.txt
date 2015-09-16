@@ -27,3 +27,16 @@ cnpm install -g package_name
 方法三 
 直接下载到本地。 
 实在是怕麻烦，就直接把文件 download 下来，然后放到 node_module 之中就行了。如果是全局模块，找到全局 node_module 的位置，然后解压放进去就行了。 
+
+3、安装配置
+安装完成后修改/etc/profile:
+
+#set for nodejs
+export NODE_HOME=/usr/local/node/0.10.35
+export PATH=$NODE_HOME/bin:$PATH
+
+#set for mongodb
+export MONGO_HOME=/usr/local/mongodb
+export PATH=$MONGO_HOME/bin:$PATH
+
+export PATH USER LOGNAME MAIL HOSTNAME HISTSIZE HISTCONTROL

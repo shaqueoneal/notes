@@ -133,11 +133,16 @@ cat /etc/redhat-release
 31、修改进程打开最大文件数
 1）ulimit -n 2048	对当前shell打开的进程有效
 2）修改linux系统参数。vi /etc/security/limits.conf 添加
-*　　soft　　nofile　　65534
-*　　hard　　nofile　　65534
+root 　　soft　　nofile　　65534	//root 是用户名，如果 * 为所有 用户
+root 　　hard　　nofile　　65534
 重新登录，所有进程永久生效
+若要立即生效 source /etc/security/limits.conf
 3)echo 65534 > /proc/sys/fs/file-max
-所有进程生效，重启失效
+这是所有进程一共能打开的文件数，对所有进程生效，重启失效
+4)修改/etc/sysctl.conf, 加入
+fs.file-max = 6553560
+这是所有进程一共能打开的文件数，对所有进程生效，重启生效
+若要立即生效 sudo sysctl -p
 
 32、让linux进程在指定核上运行
 1）显示进程运行的CPU

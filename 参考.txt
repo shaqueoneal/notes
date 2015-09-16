@@ -20,6 +20,10 @@ open和fopen区别：http://www.cnblogs.com/hnrainll/archive/2011/09/16/2178706.html
 文件缓冲：http://blog.csdn.net/farsightliuht/article/details/8190221
 	      http://tech.ddvip.com/2013-05/1369680280196182.html
 文件读写：http://blog.chinaunix.net/uid-27105712-id-3270102.html
+怎么退出线程合适等：http://biancheng.dnbcw.info/linux/416547.html
+soket调优：http://www.cyberciti.biz/files/linux-kernel/Documentation/networking/ip-sysctl.txt
+tcpdump: http://www.cnblogs.com/ggjucheng/archive/2012/01/14/2322659.html
+
 
 Html:
 Chrome 使用技巧：http://tutorialzine.com/2015/03/15-must-know-chrome-devtools-tips-tricks/
@@ -79,3 +83,7 @@ const用法：http://blog.csdn.net/zcf1002797280/article/details/7816977
 
 虚拟化：
 CentOS系统下docker的安装配置及使用详解：http://www.server110.com/docker/201411/11105.html
+
+趋势：
+AvalonJS
+Metor

@@ -85,3 +85,7 @@ Link detected: no
 8、ping“无法访问目标主机”和“请求超时”的区别
 请求超时：经过的路由器或交换机上有这个路由
 无法访问目标主机：经过的路由器或交换机上没这个路由
+
+9、修改主机名
+/etc/hosts中配置的hostname是dns解析用的
+/etc/sysconfig/network是你的真正的hostname

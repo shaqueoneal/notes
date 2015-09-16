@@ -22,6 +22,8 @@ route add default gw 192.168.137.1 eth0
 现在linux下测试下吧
 curl -U username:password -x proxy.h3c.com:8080 http://www.baidu.com -o baudu.html
 
+curl -U z07042:Zw47XX9 -x 172.25.14.129:8080 http://www.baidu.com -o baudu.html
+
 172.25.14.129:8080是代理服务器的ip和端口，如果服务器不需要身份验证把 -U username:password 删除就可以了。
 经过这样的设置就可以在内网通过外网链接的代理服务器上网了
 

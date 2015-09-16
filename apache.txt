@@ -5,3 +5,10 @@ httpd -k restart
 2、http配置文件
 /usr/local/apache/conf/httpd.conf
 修改后重启httpd生效
+
+3、配置keepalive
+/usr/local/apache/conf/extra/httpd-default.conf
+修改后重启httpd生效
+
+4、查看使用了哪些配置项
+httpd -S
