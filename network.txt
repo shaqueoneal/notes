@@ -16,9 +16,15 @@ Windows获取Linux主机名：
 Linux下要安装smb，然后启动NetBIOS服务：service nmb start
 ping -a 10.99.73.184
 
-4、获取端口是哪个进程占用的
+4、获取端口所属进程及进程打开端口
 Linux:
 netstat -apn | grep 9010
+
+查看进程打开端口:
+netstat -lanp | grep <pid>
+
+根据端口列出所有进程:
+lsof -i :<port> 
 
 Windows：
 netstat -nao | findstr 9010

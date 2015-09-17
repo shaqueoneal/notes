@@ -12,3 +12,9 @@ httpd -k restart
 
 4、查看使用了哪些配置项
 httpd -S
+
+5、查看加载了哪些模块
+apachectl -t -D DUMP_MODULES
+
+查看编译时就存在的模块：
+apachectl -l  
