@@ -170,3 +170,42 @@ lsof -n |awk '{print $2 " " $3}'|sort|uniq -c |sort -nr|more
 
 35、查看wwn
 ls -l /dev/disk/by-id/
+
+36、运行时查看和修改内核参数
+sysctl
+
+37、统计脚本运行时间
+time bash cmd.sh
+
+38、shell并发处理
+不限并发进程数：
+[root@station1 ~]# cat b.sh
+#!/bin/bash
+for((i=0;i<20;i++))
+do
+{
+sleep 1
+echo "bingfa"
+}&
+done
+wait
+
+限制并发进程数为3：
+[root@station1 ~]# cat d.sh
+#!/bin/bash
+mkfifo fd2			#创建队列
+exec 9<>fd2			#分配文件描述符9给队列
+echo -n -e "1\n1\n1\n" 1>&9		#3次向队列输入1并换行
+for((i=0;i<20;i++))
+do
+read -u 9			#从文件描述符9中读取一行，如果读空会一直等待
+{ #your process
+sleep 1				#每次子进程执行完等1秒
+echo "$REPLY"		#read 命令读取值默认保存在 $REPLY 于是会打印 1
+echo -ne "1\n" 1>&9 #打印完再写1到队列，这样下次read可以继续重开3个子进程
+} &					#大括号内命令在后台执行，这样一次可以执行多个命令
+done
+wait				#等待所有子进程结束
+rm -f fd2
+
+
