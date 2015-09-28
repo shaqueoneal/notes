@@ -95,3 +95,6 @@ Link detected: no
 9、修改主机名
 /etc/hosts中配置的hostname是dns解析用的
 /etc/sysconfig/network是你的真正的hostname
+
+10、tcpdump抓本机发给本机的端口
+tcpdump tcp -i lo -c 100 and port 9003 -w ./target.cap

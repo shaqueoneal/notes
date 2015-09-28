@@ -23,7 +23,7 @@ open和fopen区别：http://www.cnblogs.com/hnrainll/archive/2011/09/16/2178706.html
 怎么退出线程合适等：http://biancheng.dnbcw.info/linux/416547.html
 soket调优：http://www.cyberciti.biz/files/linux-kernel/Documentation/networking/ip-sysctl.txt
 tcpdump: http://www.cnblogs.com/ggjucheng/archive/2012/01/14/2322659.html
-
+服务器调优命令：http://blog.csdn.net/he_jian1/article/details/40787269
 
 Html:
 Chrome 使用技巧：http://tutorialzine.com/2015/03/15-must-know-chrome-devtools-tips-tricks/
@@ -38,6 +38,8 @@ css3 3d知识：http://www.zhangxinxu.com/wordpress/2012/09/css3-3d-transform-persp
 前端工具：http://www.codetc.com/article-25-1.html
 文字和图片在同一行显示：http://www.jb51.net/css/177178.html
 UTF8 BOM: http://www.cnblogs.com/ini_always/archive/2011/12/24/2300601.html
+HTTP协议详解：http://blog.csdn.net/gueter/article/details/1524447
+linux下close掉socket之后阻塞的recv不会立即返回：http://www.cnblogs.com/wainiwann/p/3942203.html
 
 JavaScript：
 JavaScript模块：http://my.oschina.net/felumanman/blog/263330?p=1
@@ -86,4 +88,4 @@ CentOS系统下docker的安装配置及使用详解：http://www.server110.com/docker/201411/1
 
 趋势：
 AvalonJS
-Metor
+Meteor

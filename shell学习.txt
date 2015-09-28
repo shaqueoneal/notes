@@ -208,4 +208,8 @@ done
 wait				#等待所有子进程结束
 rm -f fd2
 
+39、查看子进程个数
+进程pid 6042为例：
+cat /proc/*/status | grep PPid | grep 6042 | wc -l 
+
 

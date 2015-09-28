@@ -1,0 +1,49 @@
+1、开telnet
+sys
+interface M-GigabitEthernet 0/0/0
+ip address 172.16.1.112 24
+quit
+user-interface vty 0 15
+authentication-mode none 
+user level-3 
+user-role network-admin 
+q
+
+telnet server enable
+
+2、开ftp
+sys
+local-user 123
+authorization-attribute user-role network-admin work-directory flash:
+password simple 123
+service-type ftp
+qu
+ftp server enable
+
+3、升级交换机
+进交换机 save 保存配置
+交换机开ftp
+explorer打开ftp://ip 放入ipe文件：
+boot-loader file flash:/m8310-cmw710-system-r3108.ipe
+或install bin文件：
+install activate system flash:/m8310-cmw710-system-r3109p01.bin
+display boot-loader 确认启动使用镜像
+display install active 确认激活的特性
+交换机reboot
+	
+4、打开调试信息
+t d 
+t m
+
+5、升级uis
+install deactivate feature flash:/UISM-1.00.06-M8310.bin slot 1
+install activate feature flash:/UISM-1.00.06-M8310.bin slot 1 
+自动重启后可用
+
+6、查看和设置交换机ip
+sys
+interface Vlan-interface 1 
+dis this
+
+
+
